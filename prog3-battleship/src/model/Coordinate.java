@@ -1,7 +1,10 @@
 package model;
+
+import java.util.Arrays;
+
 public class Coordinate
 {
-	int components;
+	int components[];
 	int dim;
 	
 	public Coordinate(int x, int y){
@@ -11,19 +14,15 @@ public class Coordinate
         components[1]=y;
 	}
 	
-	public Coordinate(final Coordinate&){
-        dim = 2;
-        components = new int[dim];
+	public Coordinate(Coordinate c){
+		dim=2;
+        components = new int[2];
 	
         for (int i=0;i<dim;i++)
             components[i]=c.components[i];
 	}
 	
-	public ~Coordinate(){
-     
-	}
-	
-	public int get(int component) final{
+	public final int get(int component){
 	   if (component>=0 && component<dim) {
             return components[component];
         }
@@ -36,28 +35,22 @@ public class Coordinate
         return -1;
 	}
 	
-	public bool operator==(final Coordinate&) final{
+	public final boolean equals(Coordinate c){
         for (int i=0;i<dim;i++)
             if (components[i] != c.components[i]) return false;
         return true;
 	}
 	
 	
-	public string to_string() final{
-        stringstream concatenation;
-        concatenation << "(";
-        for (int i=0;i<dim;i++)
-        {
-            concatenation << components[i];
-            if (i<dim-1) // no es la última
-                concatenation << ",";
-        }
-        concatenation << ")";
-        return concatenation.str();
+	@Override
+	public String toString() {
+		return "Coordinate [components=" + Arrays.toString(components) + ", dim=" + dim + ", operator=" + operator
+				+ "]";
 	}
 	
-	public Coordinate operator+(final Coordinate& c) final{
-        Coordinate new_c(*this);
+	
+	public final Coordinate operator+(Coordinate c){
+        Coordinate new_c;
         
         for (int i=0; i<dim; i++)
         new_c.set(i, new_c.get(i) + c.get(i));
