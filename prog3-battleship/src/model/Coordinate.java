@@ -1,9 +1,12 @@
+/**
+ * @author Nikita Polyanskiy P550048833
+ */
 package model;
 
 import java.util.Arrays;
 
-public class Coordinate
-{
+public class Coordinate{
+	
 	private int[] components;
 	private int dim;
 	
@@ -32,7 +35,7 @@ public class Coordinate
             System.err.print(component);
             System.err.println(" is out of range");
         }
-        }
+	}
 	
 	public int get(int component){
 	   if (component>=0 && component<dim) {
@@ -78,7 +81,7 @@ public class Coordinate
 		   }
 		   concatenation += ")";
 		   return concatenation;
-		}
+	}
 	
 	public int hashCode() {
 		final int prime = 31;
@@ -102,13 +105,6 @@ public class Coordinate
 			return false;
 		return true;
 	}
-	
-	
-
-
-	
-	
-        
 }
 
 
