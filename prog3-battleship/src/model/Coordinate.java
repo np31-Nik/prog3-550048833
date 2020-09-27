@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public class Coordinate
 {
-	int components[];
-	int dim;
+	private int[] components;
+	private int dim;
 	
 	public Coordinate(int x, int y){
         dim = 2;
@@ -16,66 +16,98 @@ public class Coordinate
 	
 	public Coordinate(Coordinate c){
 		dim=2;
-        components = new int[2];
+        components = new int[dim];
 	
-        for (int i=0;i<dim;i++)
+        for (int i=0;i<dim;i++) {
             components[i]=c.components[i];
+        }
 	}
 	
-	public final int get(int component){
-	   if (component>=0 && component<dim) {
-            return components[component];
+	protected void set(int component,int value){
+        if (component>=0 && component<dim) {
+            components[component] = value;
         }
-        else
+        else {
             System.err.print("Error in Coordinate.get, component ");
             System.err.print(component);
             System.err.println(" is out of range");
-            
+        }
+        }
+	
+	public int get(int component){
+	   if (component>=0 && component<dim) {
+            return components[component];
+        }
+        else {
+            System.err.print("Error in Coordinate.get, component ");
+            System.err.print(component);
+            System.err.println(" is out of range");
+        }
 
         return -1;
 	}
 	
-	public final boolean equals(Coordinate c){
-        for (int i=0;i<dim;i++)
-            if (components[i] != c.components[i]) return false;
-        return true;
-	}
-	
-	
-	@Override
-	public String toString() {
-		return "Coordinate [components=" + Arrays.toString(components) + ", dim=" + dim + ", operator=" + operator
-				+ "]";
-	}
-	
-	
-	public final Coordinate operator+(Coordinate c){
-        Coordinate new_c;
+	public Coordinate add(Coordinate c){
+        Coordinate new_c=c;
         
-        for (int i=0; i<dim; i++)
+        for (int i=0; i<dim; i++) {
         new_c.set(i, new_c.get(i) + c.get(i));
-                
-        return new_c;
-	}
-	
-	public Coordinate operator-(final Coordinate& c) final{
-        Coordinate new_c(*this); 
-        
-        for (int i=0; i<dim; i++)
-            new_c.set(i, new_c.get(i) - c.get(i));
-                
-        return new_c;
-	}
-	
-	private void set(int component,int value){
-        if (component>=0 && component<dim) {
-            components[component] = value;
         }
-        else
-            System.err.print("Error in Coordinate.get, component ");
-            System.err.print(component);
-            System.err.println(" is out of range");
-        }      
+        return new_c;
+	}
+	
+	public final Coordinate substract(Coordinate c){
+        Coordinate new_c=c;
+        
+        for (int i=0; i<dim; i++) {
+            new_c.set(i, new_c.get(i) - c.get(i));
+        }               
+        return new_c;
+	}
+	
+	public final String toString() {
+		   String concatenation="";
+		   concatenation += "(";
+		   for (int i = 0;i < dim;i++)
+		   {
+			  concatenation += components[i];
+			  if (i < dim - 1) 
+			  {
+				 concatenation += ",";
+			  }
+		   }
+		   concatenation += ")";
+		   return concatenation;
+		}
+	
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + Arrays.hashCode(components);
+		result = prime * result + dim;
+		return result;
+	}
+
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Coordinate other = (Coordinate) obj;
+		if (!Arrays.equals(components, other.components))
+			return false;
+		if (dim != other.dim)
+			return false;
+		return true;
+	}
+	
+	
+
+
+	
+	
         
 }
 
