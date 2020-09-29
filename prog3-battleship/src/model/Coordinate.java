@@ -61,7 +61,7 @@ public class Coordinate{
 	
 	/**
 	 * Método get.
-	 * @param component
+	 * @param component la componente
 	 * @return componente si tiene exito.
 	 */
 	public int get(int component){
