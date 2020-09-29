@@ -51,7 +51,7 @@ public class Coordinate{
 	}
 	
 	public Coordinate add(Coordinate c){
-        Coordinate new_c=c;
+        Coordinate new_c= new Coordinate(this);
         
         for (int i=0; i<dim; i++) {
         new_c.set(i, new_c.get(i) + c.get(i));
@@ -59,8 +59,8 @@ public class Coordinate{
         return new_c;
 	}
 	
-	public final Coordinate substract(Coordinate c){
-        Coordinate new_c=c;
+	public final Coordinate subtract(Coordinate c){
+        Coordinate new_c= new Coordinate(this);
         
         for (int i=0; i<dim; i++) {
             new_c.set(i, new_c.get(i) - c.get(i));
