@@ -1,15 +1,29 @@
-/**
- * @author Nikita Polyanskiy P550048833
- */
 package model;
 
 import java.util.Arrays;
+/**
+ * @author Nikita Polyanskiy P550048833
+ */
 
+/**
+ * Clase coordenada.
+ */
 public class Coordinate{
-	
+	/**
+	 * Componentes de la coordenada.
+	 */
 	private int[] components;
+	
+	/**
+	 * Dimensión de la coordenada.
+	 */
 	private int dim;
 	
+	/**
+	 * Constructor
+	 * @param x columna
+	 * @param y fila
+	 */
 	public Coordinate(int x, int y){
         dim = 2;
         components = new int[dim];
@@ -17,6 +31,10 @@ public class Coordinate{
         components[1]=y;
 	}
 	
+	/**
+	 * Constructor.
+	 * @param c Coordenada
+	 */
 	public Coordinate(Coordinate c){
 		dim=2;
         components = new int[dim];
@@ -25,7 +43,11 @@ public class Coordinate{
             components[i]=c.components[i];
         }
 	}
-	
+	/**
+	 * Método set.
+	 * @param component la componente
+	 * @param value el valor entero
+	 */
 	protected void set(int component,int value){
         if (component>=0 && component<dim) {
             components[component] = value;
@@ -37,6 +59,11 @@ public class Coordinate{
         }
 	}
 	
+	/**
+	 * Método get.
+	 * @param component
+	 * @return componente si tiene exito.
+	 */
 	public int get(int component){
 	   if (component>=0 && component<dim) {
             return components[component];
@@ -50,6 +77,11 @@ public class Coordinate{
         return -1;
 	}
 	
+	/**
+	 * Método add.
+	 * @param c la coordenada.
+	 * @return la nueva coordenada.
+	 */
 	public Coordinate add(Coordinate c){
         Coordinate new_c= new Coordinate(this);
         
@@ -59,6 +91,11 @@ public class Coordinate{
         return new_c;
 	}
 	
+	/**
+	 * Método substract.
+	 * @param c la coordenada.
+	 * @return la nueva coordenada.
+	 */
 	public final Coordinate subtract(Coordinate c){
         Coordinate new_c= new Coordinate(this);
         
@@ -68,6 +105,10 @@ public class Coordinate{
         return new_c;
 	}
 	
+	/**
+	 * Método toString.
+	 * @return la cadena.
+	 */
 	public final String toString() {
 		   String concatenation="";
 		   concatenation += "(";
@@ -83,6 +124,10 @@ public class Coordinate{
 		   return concatenation;
 	}
 	
+	/**
+	 * Método hashCode.
+	 * @return el entero.
+	 */
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -91,6 +136,11 @@ public class Coordinate{
 		return result;
 	}
 
+	/**
+	 * Método equals.
+	 * @param obj el objeto.
+	 * @return true si tiene exito.
+	 */
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
