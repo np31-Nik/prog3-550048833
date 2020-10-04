@@ -22,6 +22,7 @@ public class Coordinate{
 	 */
 	private int dim;
 	
+	
 	/**
 	 * Constructor
 	 * @param x columna
