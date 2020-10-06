@@ -5,15 +5,20 @@ package model;
  *
  */
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Clase Ship.
  *
  */
 public class Ship {
 	
-	private static int BOUNDING_SQUARE_SIZE;
+	private static int BOUNDING_SQUARE_SIZE=5;
 	
-	private static int HIT_VALUE;
+	private static int HIT_VALUE=-1;
+	
+	private static int CRAFT_VALUE=1;
 	
 	private char symbol;
 	
@@ -55,7 +60,12 @@ public class Ship {
 	}
 	
 	public Coordinate getPosition() {
+		if(position!=null) {
+		Coordinate c= this.position.copy();
+		return c;
+		}
 		
+		return null;
 	}
 	
 	public void setPosition(Coordinate position) {
@@ -79,11 +89,53 @@ public class Ship {
 	}
 	
 	public int getShapeIndex(Coordinate c) {
+		int r;
+		int a=c.get(0);
+		int b=c.get(1);
 		
+		r=b*BOUNDING_SQUARE_SIZE+a;
+		
+		return r;
 	}
 	
 	public Set<Coordinate> getAbsolutePositions(Coordinate c){
 		
+	}
+	
+	public Set<Coordinate> getAbsolutePositions(){
+		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
+		int ori=0;
+		int x,y;
+		
+		switch(orientation) {
+		case NORTH:
+			ori=0;
+			break;
+		case EAST:
+			ori=1;
+			break;
+		case SOUTH:
+			ori=2;
+			break;
+		case WEST:
+			ori=3;
+			break;
+		default:
+			break;
+		}
+		
+		for(int i=0;i<25;i++) {
+			if(shape[ori][i]==CRAFT_VALUE) {
+				x=i/BOUNDING_SQUARE_SIZE;
+				if(i>BOUNDING_SQUARE_SIZE) {
+					y=i-BOUNDING_SQUARE_SIZE;
+				}else {
+					y=i;
+				}
+				conjunto_coordinate.add(new Coordinate(x,y));
+			}
+		}
+		return conjunto_coordinate;
 	}
 	
 	public boolean hit(Coordinate c) {
