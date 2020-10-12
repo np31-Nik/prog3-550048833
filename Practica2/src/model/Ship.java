@@ -5,6 +5,7 @@ package model;
  *
  */
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -69,23 +70,23 @@ public class Ship {
 	}
 	
 	public void setPosition(Coordinate position) {
-	
+		this.position=position;
 	}
 	
 	public String getName() {
-		
+		return name;
 	}
 	
 	public Orientation getOrientation() {
-		
+		return orientation;
 	}
 	
 	public char getSymbol() {
-		
+		return symbol;
 	}
 	
 	public int[][] getShape(){
-		
+		return shape;
 	}
 	
 	public int getShapeIndex(Coordinate c) {
@@ -99,13 +100,49 @@ public class Ship {
 	}
 	
 	public Set<Coordinate> getAbsolutePositions(Coordinate c){
+		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
+		int ori=0;
+		int x,y;
 		
+		
+		switch(orientation) {
+		case NORTH:
+			ori=0;
+			break;
+		case EAST:
+			ori=1;
+			break;
+		case SOUTH:
+			ori=2;
+			break;
+		case WEST:
+			ori=3;
+			break;
+		default:
+			break;
+		}
+		
+		for(int i=0;i<25;i++) {
+			if(shape[ori][i]==CRAFT_VALUE) {
+				x=i/BOUNDING_SQUARE_SIZE;
+				if(i>BOUNDING_SQUARE_SIZE) {
+					y=i-BOUNDING_SQUARE_SIZE;
+				}else {
+					y=i;
+				}
+				x=x+c.get(0);
+				y=y+c.get(1);
+				conjunto_coordinate.add(new Coordinate(x,y));
+			}
+		}
+		return conjunto_coordinate;
 	}
 	
 	public Set<Coordinate> getAbsolutePositions(){
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
 		int ori=0;
 		int x,y;
+		
 		
 		switch(orientation) {
 		case NORTH:
@@ -139,15 +176,87 @@ public class Ship {
 	}
 	
 	public boolean hit(Coordinate c) {
+		boolean HIT=false;
+		int pos,ori=0;
 		
+		if(getAbsolutePositions().contains(c)) {
+			HIT=true;
+			pos=getShapeIndex(c);
+			switch(orientation) {
+			case NORTH:
+				ori=0;
+				break;
+			case EAST:
+				ori=1;
+				break;
+			case SOUTH:
+				ori=2;
+				break;
+			case WEST:
+				ori=3;
+				break;
+			default:
+				break;
+			}
+			shape[ori][pos]=HIT_VALUE;
+		}
+		
+		return HIT;
 	}
 	
 	public boolean isShotDown() {
+		int ori=0;
+		boolean shot=true;
+		switch(orientation) {
+		case NORTH:
+			ori=0;
+			break;
+		case EAST:
+			ori=1;
+			break;
+		case SOUTH:
+			ori=2;
+			break;
+		case WEST:
+			ori=3;
+			break;
+		default:
+			break;
+		}
+		for(int i=0;i<25 && shot;i++) {
+			if(shape[ori][i]==CRAFT_VALUE) {
+				shot=false;
+			}
+		}
+		
+		return shot;
 		
 	}
 	
 	public boolean isHit(Coordinate c) {
-		
+		boolean HIT=false;
+		int pos=getShapeIndex(c);
+		int ori=0;
+		switch(orientation) {
+		case NORTH:
+			ori=0;
+			break;
+		case EAST:
+			ori=1;
+			break;
+		case SOUTH:
+			ori=2;
+			break;
+		case WEST:
+			ori=3;
+			break;
+		default:
+			break;
+		}
+		if(shape[ori][pos]==HIT_VALUE) {
+				HIT=true;
+			}
+		return HIT;
 	}
 
 	public static int getBOUNDING_SQUARE_SIZE() {
@@ -181,9 +290,49 @@ public class Ship {
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
-	
-	
-	
+
+	public String toString() {
+		String ship=name+" ("+orientation+")"+"\n";
+		int ori=0;
+		switch(orientation) {
+		case NORTH:
+			ori=0;
+			break;
+		case EAST:
+			ori=1;
+			break;
+		case SOUTH:
+			ori=2;
+			break;
+		case WEST:
+			ori=3;
+			break;
+		default:
+			break;
+		}
+		
+		for(int k=0;k<BOUNDING_SQUARE_SIZE;k++) {
+			ship+="-";
+		}
+		ship+="\n";
+		
+		for(int i=0;i<BOUNDING_SQUARE_SIZE;i++) {
+			ship+="|";
+					for(int j=0;j<BOUNDING_SQUARE_SIZE;j++) {
+						if(shape[ori][j+i*5]==0) {
+							ship+=" ";
+						}else if(shape[ori][j+i*5]==CRAFT_VALUE) {
+							ship+=symbol;
+						}else if(shape[ori][j+i*5]==HIT_VALUE) {
+							ship+="•";
+						}
+					}
+			ship+="|"+"\n";
+		}
+		for(int k=0;k<BOUNDING_SQUARE_SIZE;k++) {
+			ship+="-";
+		}
+	return ship;
+	}
 	
 }
-
