@@ -102,25 +102,77 @@ public boolean areAllCraftsDestroyed() {
 	boolean alive = false;
 	Set<Coordinate> c=board.keySet();
 	for (Coordinate coord : c) {
-		if(!board.get(c).isShotDown()) {
+		if(!board.get(coord).isShotDown()) {
 			alive=true;
 		}
 	}
 	return alive;
 }
 public Set<Coordinate> getNeighborhood(Ship ship, Coordinate position){
+	Set<Coordinate> S_abs=ship.getAbsolutePositions();
+	Set<Coordinate> adj = new HashSet<Coordinate>();
+	Set<Coordinate> neighbor = new HashSet<Coordinate>();
 	
+	for(Coordinate coor : S_abs) {
+		adj=coor.adjacentCoordinates();
+		for(Coordinate A_coor : adj) {
+			A_coor.add(position);
+			if(checkCoordinate(A_coor)) {
+				neighbor.add(A_coor);
+			}
+		}
+	}
+	for(Coordinate coor : S_abs) {
+		coor.add(position);
+		if(neighbor.contains(coor)) {
+			neighbor.remove(coor);
+		}
+	}
+	return neighbor;
 }
 public Set<Coordinate> getNeighborhood(Ship ship){
-	
+	return getNeighborhood(ship,ship.getPosition());
 }
 
 public String show(boolean unveil) {
+	String tablero="";
+	Ship barco;
 	
+	if(unveil==true) {
+		for(int i=0;i<size;i++) {
+			for(int j=0;j<size;j++) {
+				barco = board.get(new Coordinate(i,j));
+					if(barco!=null) {
+						tablero+=barco.getSymbol();		
+					}else {
+						tablero+=WATER_SYMBOL;
+					}
+			}
+		}
+	}else{
+		for(int i=0;i<size;i++) {
+			for(int j=0;j<size;j++) {
+				barco = board.get(new Coordinate(i,j));
+				if(!seen.contains(new Coordinate(i,j))) {
+					tablero+=NOTSEEN_SYMBOL;
+				}else {
+					if(barco.isHit(new Coordinate(i,j))) {
+						if(barco.isShotDown()) {
+							tablero+=barco.getSymbol();
+						}else {
+							tablero+=HIT_SYMBOL;
+						}
+					}else {
+						tablero+=WATER_SYMBOL;
+					}
+				}
+			}
+		}
+	}
+	return tablero;
 }
 
 public String toString() {
-	return "Board [size=" + size + "]";
+		return "Board "+size+"; crafts: "+numCrafts+"; destroyed: "+destroyedCrafts;
 }
-
 }

@@ -5,7 +5,6 @@ package model;
  *
  */
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -311,6 +310,8 @@ public class Ship {
 			break;
 		}
 		
+		ship+=" ";
+		
 		for(int k=0;k<BOUNDING_SQUARE_SIZE;k++) {
 			ship+="-";
 		}
@@ -320,15 +321,16 @@ public class Ship {
 			ship+="|";
 					for(int j=0;j<BOUNDING_SQUARE_SIZE;j++) {
 						if(shape[ori][j+i*5]==0) {
-							ship+=" ";
+							ship+=Board.WATER_SYMBOL;
 						}else if(shape[ori][j+i*5]==CRAFT_VALUE) {
 							ship+=symbol;
 						}else if(shape[ori][j+i*5]==HIT_VALUE) {
-							ship+="•";
+							ship+=Board.HIT_SYMBOL;
 						}
 					}
 			ship+="|"+"\n";
 		}
+		ship+=" ";
 		for(int k=0;k<BOUNDING_SQUARE_SIZE;k++) {
 			ship+="-";
 		}
