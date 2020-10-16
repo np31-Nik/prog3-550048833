@@ -52,17 +52,44 @@ public boolean addShip(Ship ship, Coordinate position) {
 	boolean out=false;
 	boolean occupied=false;
 	boolean neighbor=false;
+	Set<Coordinate> coords=board.keySet();
+	Ship barco2;
 	
 	for(Coordinate c : ship.getAbsolutePositions(position)) {
 		if(!checkCoordinate(c)) {
 			out=true;
+			System.err.println("Error, posicion fuera del tablero.");
+		}
+		
+		for(Coordinate b_c : coords) {
+			barco2=board.get(b_c);
+			for(Coordinate b2_c : barco2.getAbsolutePositions()){
+				if(b2_c == c) {
+					occupied=true;
+					System.err.println("Error, la posicion esta ocupada.");
+				}
+			}
+		}
+		for(Coordinate n_c : getNeighborhood(ship,position)) {
+			for(Coordinate b_c : coords) {
+				barco2=board.get(b_c);
+				for(Coordinate b2_c : barco2.getAbsolutePositions()){
+					if(b2_c.add(position) == n_c) {
+						neighbor=true;
+						System.err.println("Error, hay un barco en la vecindad.");
+					}
+				}
+			}
 		}
 	}
+
 	if(out || occupied || neighbor) {
 		add=false;
 	}
 	if(add) {
-		
+		for(Coordinate b : ship.getAbsolutePositions()) {
+			board.put(b.add(position),ship);
+		}
 	}
 	return add;
 }
