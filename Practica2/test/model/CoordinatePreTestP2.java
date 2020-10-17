@@ -1,9 +1,11 @@
 package model;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -45,8 +47,12 @@ public class CoordinatePreTestP2 {
 	 */
 	@Test
 	public void testAdjacentCoordinates() {
-		
-      fail("Realiza el test de adjacentCoordiantes propuesto");
+		Coordinate c = new Coordinate(0,2);
+		Set<Coordinate> adj = c.adjacentCoordinates();
+		for(Coordinate a : adj) {
+			assertTrue(adj.contains(a));
+			
+		}
 	}
 	
 	

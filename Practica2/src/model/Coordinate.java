@@ -150,7 +150,7 @@ public class Coordinate{
 			  concatenation += components[i];
 			  if (i < dim - 1) 
 			  {
-				 concatenation += ",";
+				 concatenation += ", ";
 			  }
 		   }
 		   concatenation += ")";

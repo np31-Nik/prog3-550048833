@@ -31,5 +31,11 @@ public class MainP2 {
 		
 		System.out.println(b);
 		System.out.println(portaaviones);
+		System.out.println(submarino);
+
+		System.out.println(destructor);
+		System.out.println(b.show(true));
+		System.out.println(b.show(false));
+
 	}
 }
