@@ -88,10 +88,10 @@ public boolean checkCoordinate(Coordinate c) {
 	int a=c.get(0);
 	int b=c.get(1);
 	
-	if(a<0 || a>size-1) {
+	if(a<0 || a>=size) {
 		check=false;
 	}
-	if(b<0 || b>size-1) {
+	if(b<0 || b>=size) {
 		check=false;
 	}
 	
@@ -105,6 +105,34 @@ public boolean checkCoordinate(Coordinate c) {
  * @return verdadero si se ha agregado.
  */
 public boolean addShip(Ship ship, Coordinate position) {
+	boolean add=true;
+	
+	for(Coordinate c_barco : ship.getAbsolutePositions(position)) {
+		if(!checkCoordinate(c_barco) && add) {
+			add=false;
+			System.err.println("Error, posicion del barco fuera del tablero: "+c_barco.toString());
+		}
+		if(board.containsKey(c_barco) && add) {
+			add=false;
+			System.err.println("Error, ya hay un barco en la posicion: "+c_barco.toString());
+		}
+		for(Coordinate c_neighbor : getNeighborhood(ship,position)) {
+			if(board.keySet().contains(c_neighbor) && add){
+				add=false;
+				System.err.println("Error, hay un barco en la vecindad: "+c_barco.toString());
+			}
+		}
+	}
+	if(add){
+		for(Coordinate c : ship.getAbsolutePositions(position)) {
+			board.put(c, ship);
+		}
+		numCrafts++;
+		ship.setPosition(position);
+	}
+	return add;
+	
+	/*
 	boolean add=true;
 	boolean out=false;
 	boolean occupied=false;
@@ -151,6 +179,7 @@ public boolean addShip(Ship ship, Coordinate position) {
 		numCrafts++;
 	}
 	return add;
+	*/
 }
 /**
  * Metodo getShip
@@ -187,14 +216,23 @@ public CellStatus hit(Coordinate c) {
 	if(getShip(c)==null) {
 		seen.add(c);
 		return CellStatus.WATER;
-	}else {
+	}else{
 		Ship ship=board.get(c);
+		//System.out.println("-------------------------");
+		Set<Coordinate> neigh = getNeighborhood(ship);
+		//System.out.println("-------------------------");
+
 		ship.hit(c);
 		seen.add(c);
 		if(ship.isShotDown()) {
 			destroyedCrafts++;
+
+			for(Coordinate S : neigh) {
+				seen.add(S);
+			}
+
 			return CellStatus.DESTROYED;
-		}else {
+		}else{
 			return CellStatus.HIT;
 		}
 	}
@@ -221,25 +259,23 @@ public boolean areAllCraftsDestroyed() {
  * @return un set de coordenadas de la vecindad
  */
 public Set<Coordinate> getNeighborhood(Ship ship, Coordinate position){
-	Set<Coordinate> S_abs=ship.getAbsolutePositions();
-	Set<Coordinate> adj = new HashSet<Coordinate>();
 	Set<Coordinate> neighbor = new HashSet<Coordinate>();
 	
-	for(Coordinate coor : S_abs) {
-		adj=coor.adjacentCoordinates();
-		for(Coordinate A_coor : adj) {
-			A_coor.add(position);
+	for(Coordinate coor : ship.getAbsolutePositions(position)) {
+		for(Coordinate A_coor : coor.adjacentCoordinates()) {
 			if(checkCoordinate(A_coor)) {
 				neighbor.add(A_coor);
+				//System.out.println(A_coor.toString());
+
 			}
 		}
 	}
-	for(Coordinate coor : S_abs) {
-		coor.add(position);
+	for(Coordinate coor : ship.getAbsolutePositions(position)) {
 		if(neighbor.contains(coor)) {
 			neighbor.remove(coor);
 		}
 	}
+	
 	return neighbor;
 }
 
@@ -264,23 +300,27 @@ public String show(boolean unveil) {
 	if(unveil) {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				barco = board.get(new Coordinate(i,j));
+				barco = board.get(new Coordinate(j,i));
 					if(barco!=null) {
+						if(barco.isHit(new Coordinate(j,i))) {
+							tablero+=HIT_SYMBOL;
+						}else
 						tablero+=barco.getSymbol();		
 					}else {
 						tablero+=WATER_SYMBOL;
 					}
 			}
+			if(i<size-1)
 			tablero+="\n";
 		}
 	}else{
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				barco = board.get(new Coordinate(i,j));
-				if(!seen.contains(new Coordinate(i,j))) {
+				barco = board.get(new Coordinate(j,i));
+				if(!seen.contains(new Coordinate(j,i))) {
 					tablero+=NOTSEEN_SYMBOL;
 				}else {
-					if(barco.isHit(new Coordinate(i,j))) {
+					if(barco!= null && barco.isHit(new Coordinate(j,i))) {
 						if(barco.isShotDown()) {
 							tablero+=barco.getSymbol();
 						}else {
@@ -291,6 +331,7 @@ public String show(boolean unveil) {
 					}
 				}
 			}
+			if(i<size-1)
 			tablero+="\n";
 
 		}

@@ -264,7 +264,10 @@ public class BoardPreTest {
 		board = new Board(5);
 		board.addShip(galeon, new Coordinate(-2,-1));
 		board.addShip(fragata, new Coordinate(1,-2));
-		fail ("Sigue añadiendo la goleta y el bergantín en sus posiciones y haz las comprobaciones indicadas");
+		board.addShip(bergantin, new Coordinate(2,-1));
+		board.addShip(goleta, new Coordinate(-1,-2));
+		assertEquals(sboardHide1,board.show(false));
+		assertEquals(sboard,board.show(true));
 
 	}	
 	

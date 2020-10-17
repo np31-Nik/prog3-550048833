@@ -228,29 +228,30 @@ public class Ship {
 	public boolean hit(Coordinate c) {
 		boolean HIT=false;
 		int pos,ori=0;
-		
-		if(getAbsolutePositions().contains(c)) {
-			HIT=true;
-			pos=getShapeIndex(c);
-			switch(orientation) {
-			case NORTH:
-				ori=0;
-				break;
-			case EAST:
-				ori=1;
-				break;
-			case SOUTH:
-				ori=2;
-				break;
-			case WEST:
-				ori=3;
-				break;
-			default:
-				break;
-			}
-			shape[ori][pos]=HIT_VALUE;
+		switch(orientation) {
+		case NORTH:
+			ori=0;
+			break;
+		case EAST:
+			ori=1;
+			break;
+		case SOUTH:
+			ori=2;
+			break;
+		case WEST:
+			ori=3;
+			break;
+		default:
+			break;
 		}
-		
+		if(position!=null) {
+			if(getAbsolutePositions(this.position).contains(c)) {
+			
+				HIT=true;
+				pos=getShapeIndex(c.subtract(position));
+				shape[ori][pos]=HIT_VALUE;
+			}
+		}
 		return HIT;
 	}
 	/**
@@ -292,7 +293,7 @@ public class Ship {
 	 */
 	public boolean isHit(Coordinate c) {
 		boolean HIT=false;
-		int pos=getShapeIndex(c);
+		int pos=getShapeIndex(c.subtract(position));
 		int ori=0;
 		switch(orientation) {
 		case NORTH:
