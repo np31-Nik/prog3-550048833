@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Clase coordenada.
  */
-public class Coordinate{
+public abstract class Coordinate{
 	/**
 	 * Componentes de la coordenada.
 	 */
@@ -82,7 +82,7 @@ public class Coordinate{
 	}
 	/**
 	 * Método adjacentCoordinates.
-	 * @return
+	 * @return el conjunto de coordenadas
 	 */
 	public Set<Coordinate> adjacentCoordinates(){
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
@@ -102,7 +102,7 @@ public class Coordinate{
 	
 	/**
 	 * Método copy.
-	 * @return
+	 * @return la coordenada copia
 	 */
 	public Coordinate copy() {
 		Coordinate c=new Coordinate(this);

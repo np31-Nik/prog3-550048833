@@ -214,7 +214,7 @@ public CellStatus hit(Coordinate c) {
 		return CellStatus.WATER;
 	}
 	if(getShip(c)==null) {
-		seen.add(c);
+		seen.add(c.copy());
 		return CellStatus.WATER;
 	}else{
 		Ship ship=board.get(c);
@@ -223,12 +223,12 @@ public CellStatus hit(Coordinate c) {
 		//System.out.println("-------------------------");
 
 		ship.hit(c);
-		seen.add(c);
+		seen.add(c.copy());
 		if(ship.isShotDown()) {
 			destroyedCrafts++;
 
 			for(Coordinate S : neigh) {
-				seen.add(S);
+				seen.add(S.copy());
 			}
 
 			return CellStatus.DESTROYED;
@@ -243,14 +243,23 @@ public CellStatus hit(Coordinate c) {
  * @return verdadero si lo estan
  */
 public boolean areAllCraftsDestroyed() {
-	boolean alive = false;
-	Set<Coordinate> c=board.keySet();
-	for (Coordinate coord : c) {
-		if(!board.get(coord).isShotDown()) {
-			alive=true;
+	boolean destroyed=true;
+	if(numCrafts!=0) {
+		if(numCrafts>destroyedCrafts) {
+			destroyed=false;
 		}
 	}
-	return alive;
+	/*
+	Set<Coordinate> c=board.keySet();
+	if(numCrafts!=0) {
+	for (Coordinate coord : c) {
+		if(!board.get(coord).isShotDown()) {
+			destroyed=false;
+		}
+	}
+	}
+	*/
+	return destroyed;
 }
 /**
  * Metodo getNeighborhood
@@ -260,19 +269,21 @@ public boolean areAllCraftsDestroyed() {
  */
 public Set<Coordinate> getNeighborhood(Ship ship, Coordinate position){
 	Set<Coordinate> neighbor = new HashSet<Coordinate>();
+	if(position!=null) {
+		
+		for(Coordinate coor : ship.getAbsolutePositions(position)) {
+			for(Coordinate A_coor : coor.adjacentCoordinates()) {
+				if(checkCoordinate(A_coor)) {
+					neighbor.add(A_coor);
+					//System.out.println(A_coor.toString());
 	
-	for(Coordinate coor : ship.getAbsolutePositions(position)) {
-		for(Coordinate A_coor : coor.adjacentCoordinates()) {
-			if(checkCoordinate(A_coor)) {
-				neighbor.add(A_coor);
-				//System.out.println(A_coor.toString());
-
+				}
 			}
 		}
-	}
-	for(Coordinate coor : ship.getAbsolutePositions(position)) {
-		if(neighbor.contains(coor)) {
-			neighbor.remove(coor);
+		for(Coordinate coor : ship.getAbsolutePositions(position)) {
+			if(neighbor.contains(coor)) {
+				neighbor.remove(coor);
+			}
 		}
 	}
 	

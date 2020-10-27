@@ -11,5 +11,8 @@ package model;
  *
  */
 public enum Orientation {
+	/**
+	 * Tipos de orientacion posibles
+	 */
 	NORTH,EAST,SOUTH,WEST;
 }

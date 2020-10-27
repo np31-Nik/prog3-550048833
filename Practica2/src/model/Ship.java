@@ -96,7 +96,7 @@ public class Ship {
 	 * @param position la nueva posicion del barco
 	 */
 	public void setPosition(Coordinate position) {
-		this.position=position;
+		this.position=position.copy();
 	}
 	/**
 	 * Metodo getName
@@ -169,7 +169,7 @@ public class Ship {
 		}
 		
 		for(int i=0;i<BOUNDING_SQUARE_SIZE*BOUNDING_SQUARE_SIZE;i++) {
-			if(shape[ori][i]==CRAFT_VALUE) {
+			if(shape[ori][i]!=0) {
 				y=i/BOUNDING_SQUARE_SIZE;
 				x=i-BOUNDING_SQUARE_SIZE*y;
 				
@@ -245,11 +245,13 @@ public class Ship {
 			break;
 		}
 		if(position!=null) {
-			if(getAbsolutePositions(this.position).contains(c)) {
-			
-				HIT=true;
-				pos=getShapeIndex(c.subtract(position));
-				shape[ori][pos]=HIT_VALUE;
+			if(!isHit(c)) {
+				if(getAbsolutePositions(this.position).contains(c)) {
+				
+					HIT=true;
+					pos=getShapeIndex(c.subtract(position));
+					shape[ori][pos]=HIT_VALUE;
+				}
 			}
 		}
 		return HIT;
@@ -293,27 +295,29 @@ public class Ship {
 	 */
 	public boolean isHit(Coordinate c) {
 		boolean HIT=false;
-		int pos=getShapeIndex(c.subtract(position));
-		int ori=0;
-		switch(orientation) {
-		case NORTH:
-			ori=0;
-			break;
-		case EAST:
-			ori=1;
-			break;
-		case SOUTH:
-			ori=2;
-			break;
-		case WEST:
-			ori=3;
-			break;
-		default:
-			break;
-		}
-		if(shape[ori][pos]==HIT_VALUE) {
-				HIT=true;
+		if(position!=null) {
+			int pos=getShapeIndex(c.subtract(position));
+			int ori=0;
+			switch(orientation) {
+			case NORTH:
+				ori=0;
+				break;
+			case EAST:
+				ori=1;
+				break;
+			case SOUTH:
+				ori=2;
+				break;
+			case WEST:
+				ori=3;
+				break;
+			default:
+				break;
 			}
+			if(shape[ori][pos]==HIT_VALUE) {
+					HIT=true;
+			}
+		}
 		return HIT;
 	}
 	/**

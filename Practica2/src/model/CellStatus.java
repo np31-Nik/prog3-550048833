@@ -10,5 +10,8 @@ package model;
  *
  */
 public enum CellStatus {
+	/**
+	 * Tipos de estado de la celda
+	 */
 	WATER,HIT,DESTROYED;
 }
