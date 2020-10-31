@@ -2,83 +2,84 @@ package model;
 
 import java.util.HashSet;
 import java.util.Set;
-/**
- * 
- * @author Nikita Polyanskiy P550048833
- *
- */
 
-/**
- * Clase Ship
- *
- */
-public class Ship {
+import model.exceptions.CoordinateAlreadyHitException;
+
+public abstract class Craft {
+
 	/**
 	 * Tamaño de shape
 	 */
-	private static int BOUNDING_SQUARE_SIZE=5;
+	private static int BOUNDING_SQUARE_SIZE = 5;
 	/**
 	 * Valor si golpeado
 	 */
-	private static int HIT_VALUE=-1;
+	private static int HIT_VALUE = -1;
 	/**
 	 * Valor si hay un barco
 	 */
-	private static int CRAFT_VALUE=1;
+	private static int CRAFT_VALUE = 1;
 	/**
 	 * Simbolo del barco
 	 */
-	private char symbol;
+	protected char symbol;
 	/**
 	 * Nombre del barco
 	 */
-	private String name;
+	protected String name;
 	/**
 	 * Matriz molde del barco
 	 */
-	private int shape[][] = new int[][] {
-        { 0, 0, 0, 0, 0,               // NORTH    ·····
-          0, 0, 1, 0, 0,               //          ··#··
-          0, 0, 1, 0, 0,               //          ··#··
-          0, 0, 1, 0, 0,               //          ..#..
-          0, 0, 0, 0, 0},              //          ·····
-
-        { 0, 0, 0, 0, 0,               // EAST     ·····
-          0, 0, 0, 0, 0,               //          ·····
-          0, 1, 1, 1, 0,               //          ·###·
-          0, 0, 0, 0, 0,               //          ·····
-          0, 0, 0, 0, 0},              //          ·····
-
-        { 0, 0, 0, 0, 0,               // SOUTH    ·····
-          0, 0, 1, 0, 0,               //          ··#··
-          0, 0, 1, 0, 0,               //          ··#··
-          0, 0, 1, 0, 0,               //          ..#..
-          0, 0, 0, 0, 0},              //          ·····
-
-        { 0, 0, 0, 0, 0,               // WEST     ·····
-          0, 0, 0, 0, 0,               //          ·····
-          0, 1, 1, 1, 0,               //          ·###·
-          0, 0, 0, 0, 0,               //          ·····
-          0, 0, 0, 0, 0}};             //          ·····
+	protected int shape[][];
+	/*=new int[][] {
+	        { 0, 0, 0, 0, 0,               // NORTH    ·····
+	          0, 0, 1, 0, 0,               //          ··#··
+	          0, 0, 1, 0, 0,               //          ··#··
+	          0, 0, 1, 0, 0,               //          ..#..
+	          0, 0, 0, 0, 0},              //          ·····
+	
+	        { 0, 0, 0, 0, 0,               // EAST     ·····
+	          0, 0, 0, 0, 0,               //          ·····
+	          0, 1, 1, 1, 0,               //          ·###·
+	          0, 0, 0, 0, 0,               //          ·····
+	          0, 0, 0, 0, 0},              //          ·····
+	
+	        { 0, 0, 0, 0, 0,               // SOUTH    ·····
+	          0, 0, 1, 0, 0,               //          ··#··
+	          0, 0, 1, 0, 0,               //          ··#··
+	          0, 0, 1, 0, 0,               //          ..#..
+	          0, 0, 0, 0, 0},              //          ·····
+	
+	        { 0, 0, 0, 0, 0,               // WEST     ·····
+	          0, 0, 0, 0, 0,               //          ·····
+	          0, 1, 1, 1, 0,               //          ·###·
+	          0, 0, 0, 0, 0,               //          ·····
+	          0, 0, 0, 0, 0}};
+	          */
 	/**
 	 * Orientacion del barco
 	 */
-	private Orientation orientation;
+	protected Orientation orientation;
 	/**
 	 * posicion del barco
 	 */
 	private Coordinate position;
-	/**
-	 * Constructor
-	 * @param o orientacion
-	 * @param s simbolo
-	 * @param n nombre
-	 */
-	public Ship(Orientation o, char s, String n) {
+
+	
+	public Craft(Orientation o, char s, String n) {
 		orientation=o;
 		symbol=s;
 		name=n;
 	}
+	
+	/**
+	 * Metodo getBOUNDING_SQUARE_SIZE
+	 * @return BOUNDING_SQUARE_SIZE el tamaño de shape
+	 */
+	public static int getBOUNDING_SQUARE_SIZE() {
+		return BOUNDING_SQUARE_SIZE;
+	}
+
 	/**
 	 * Metodo getPosition
 	 * @return la posicion del barco
@@ -91,6 +92,7 @@ public class Ship {
 		
 		return null;
 	}
+
 	/**
 	 * Metodo setPosition
 	 * @param position la nueva posicion del barco
@@ -98,6 +100,7 @@ public class Ship {
 	public void setPosition(Coordinate position) {
 		this.position=position.copy();
 	}
+
 	/**
 	 * Metodo getName
 	 * @return el nombre del barco
@@ -105,6 +108,7 @@ public class Ship {
 	public String getName() {
 		return name;
 	}
+
 	/**
 	 * Metodo getOrientation
 	 * @return la orientacion del barco
@@ -112,6 +116,7 @@ public class Ship {
 	public Orientation getOrientation() {
 		return orientation;
 	}
+
 	/**
 	 * Metodo getSymbol
 	 * @return el simbolo del barco
@@ -119,19 +124,22 @@ public class Ship {
 	public char getSymbol() {
 		return symbol;
 	}
+
 	/**
 	 * Metodo getShape
 	 * @return el shape del barco
 	 */
-	public int[][] getShape(){
+	public int[][] getShape() {
 		return shape;
 	}
+
 	/**
 	 * Metodo getShapeIndex
 	 * @param c la coordenada
 	 * @return el indice en shape de la coordenada
 	 */
 	public int getShapeIndex(Coordinate c) {
+		if(c!=null) {
 		int r;
 		int a=c.get(0);
 		int b=c.get(1);
@@ -139,13 +147,18 @@ public class Ship {
 		r=b*BOUNDING_SQUARE_SIZE+a;
 		
 		return r;
+		}else {
+			throw new NullPointerException("Coordenada nula");
+		}
 	}
+
 	/**
 	 * Metodo getAbsolutePositions
 	 * @param c la coordenada
 	 * @return Un conjunto de las coordenadas absolutas del barco
 	 */
-	public Set<Coordinate> getAbsolutePositions(Coordinate c){
+	public Set<Coordinate> getAbsolutePositions(Coordinate c) {
+		if(c!=null) {
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
 		int ori=0;
 		int x,y;
@@ -179,12 +192,16 @@ public class Ship {
 			}
 		}
 		return conjunto_coordinate;
+		}else {
+			throw new NullPointerException("Coordenada nula");
+		}
 	}
+
 	/**
 	 * Metodo getAbsolutePositions
 	 * @return las coordenadas absolutas del barco
 	 */
-	public Set<Coordinate> getAbsolutePositions(){
+	public Set<Coordinate> getAbsolutePositions() {
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
 		int ori=0;
 		int x,y;
@@ -220,12 +237,14 @@ public class Ship {
 		}
 		return conjunto_coordinate;
 	}
+
 	/**
 	 * Metodo hit
 	 * @param c la coordenada
 	 * @return verdadero si el barco es golpeado
+	 * @throws CoordinateAlreadyHitException 
 	 */
-	public boolean hit(Coordinate c) {
+	public boolean hit(Coordinate c) throws CoordinateAlreadyHitException {
 		boolean HIT=false;
 		int pos,ori=0;
 		switch(orientation) {
@@ -252,10 +271,13 @@ public class Ship {
 					pos=getShapeIndex(c.subtract(position));
 					shape[ori][pos]=HIT_VALUE;
 				}
+			}else {
+				throw new CoordinateAlreadyHitException(c);
 			}
 		}
 		return HIT;
 	}
+
 	/**
 	 * Metodo isShotDown
 	 * @return verdadero si el barco esta destruido
@@ -288,6 +310,7 @@ public class Ship {
 		return shot;
 		
 	}
+
 	/**
 	 * Metodo isHit
 	 * @param c la coordenada
@@ -320,13 +343,7 @@ public class Ship {
 		}
 		return HIT;
 	}
-	/**
-	 * Metodo getBOUNDING_SQUARE_SIZE
-	 * @return BOUNDING_SQUARE_SIZE el tamaño de shape
-	 */
-	public static int getBOUNDING_SQUARE_SIZE() {
-		return BOUNDING_SQUARE_SIZE;
-	}
+
 	/**
 	 * Metodo setBOUNDING_SQUARE_SIZE
 	 * @param bOUNDING_SQUARE_SIZE nuevo tamaño de shape
@@ -334,6 +351,7 @@ public class Ship {
 	public static void setBOUNDING_SQUARE_SIZE(int bOUNDING_SQUARE_SIZE) {
 		BOUNDING_SQUARE_SIZE = bOUNDING_SQUARE_SIZE;
 	}
+
 	/**
 	 * Metodo getHIT_VALUE
 	 * @return HIT_VALUE el valor si golpeado
@@ -341,6 +359,7 @@ public class Ship {
 	public static int getHIT_VALUE() {
 		return HIT_VALUE;
 	}
+
 	/**
 	 * Metodo setHIT_VALUE
 	 * @param hIT_VALUE nuevo valor si golpeado
@@ -355,6 +374,7 @@ public class Ship {
 	public void setSymbol(char symbol) {
 		this.symbol = symbol;
 	}
+
 	/**
 	 * Metodo setName
 	 * @param name nuevo nombre del barco
@@ -362,6 +382,7 @@ public class Ship {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	/**
 	 * Metodo setShape
 	 * @param shape nuevo shape del barco
@@ -369,6 +390,7 @@ public class Ship {
 	public void setShape(int[][] shape) {
 		this.shape = shape;
 	}
+
 	/**
 	 * Metodo setOrientation
 	 * @param orientation nueva orientacion del barco
@@ -376,6 +398,7 @@ public class Ship {
 	public void setOrientation(Orientation orientation) {
 		this.orientation = orientation;
 	}
+
 	/**
 	 * Metodo toString
 	 * @return ship detalles del barco
@@ -426,5 +449,5 @@ public class Ship {
 		}
 	return ship;
 	}
-	
+
 }

@@ -8,12 +8,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.ship.Board2D;
+import model.ship.Ship;
+
 public class BoardPreTest {
 
 	static final int MAX_BOARD_SIZE = 20;
 	static final int  MIN_BOARD_SIZE = 5;
 	final static int DIM = 10;
-	Board board;
+	Board2D board;
 	Ship fragata, galeon, bergantin, goleta;
 	static String sboardEmpty,sboard, sboardHide1, sboardHits1,
 				sboardHits2,sboardHits3, sboardHide2; //= new String();
@@ -61,7 +64,7 @@ public class BoardPreTest {
 		galeon = new Ship(Orientation.SOUTH,'A',"Francis Drake");
 		bergantin = new Ship(Orientation.EAST,'B',"Benito Soto");
 		goleta = new Ship(Orientation.NORTH,'G',"Hook");
-		board = new Board(DIM);
+		board = new Board2D(DIM);
 		
 	}
 
@@ -73,9 +76,9 @@ public class BoardPreTest {
 	@Test
 	public void testBoardGetSize() {
 		//Dentro de los límites
-		board = new Board(MIN_BOARD_SIZE+1);
+		board = new Board2D(MIN_BOARD_SIZE+1);
 		assertEquals(MIN_BOARD_SIZE+1,board.getSize());
-		board = new Board(MAX_BOARD_SIZE-1);
+		board = new Board2D(MAX_BOARD_SIZE-1);
 		assertEquals(MAX_BOARD_SIZE-1,board.getSize());
 		fail ("Termina el test superando los límites en 1");		
 	}
@@ -86,7 +89,7 @@ public class BoardPreTest {
 	@Test
 	public void testCheckCoordinate() {
 		final int SIZE = 15;
-		Board board = new Board(SIZE);
+		Board2D board = new Board2D(SIZE);
 		assertFalse(board.checkCoordinate(new Coordinate(0,SIZE)));
 		assertFalse(board.checkCoordinate(new Coordinate(-1,SIZE-1)));
 		assertFalse(board.checkCoordinate(new Coordinate(-1,SIZE)));
@@ -105,9 +108,9 @@ public class BoardPreTest {
 	 */
 	@Test
 	public void testAddShipsOk() {
-		assertTrue(board.addShip(galeon, new Coordinate(0,1)));
+		assertTrue(board.addCraft(galeon, new Coordinate(0,1)));
 		for (int i=2; i<5; i++)	
-			assertNotNull("x,y = 2,"+i,board.getShip(new Coordinate(2,i)));
+			assertNotNull("x,y = 2,"+i,board.getCraft(new Coordinate(2,i)));
 		
 		fail("Sigue comprobando addShip igualmente para fragata, goleta y bergantín");
 	}
@@ -138,7 +141,7 @@ public class BoardPreTest {
 	 */
 	@Test
 	public void testGetShip() {
-		assertTrue(board.addShip(fragata, new Coordinate(3,1)));
+		assertTrue(board.addCraft(fragata, new Coordinate(3,1)));
 		fail ("Termina el test testGetShip()");
 	}
 	
@@ -198,9 +201,9 @@ public class BoardPreTest {
 	@Test
 	public void testAreAllCraftsDestroyed() {
 		assertTrue("numCrafts=destroyedCrafts=0",board.areAllCraftsDestroyed());
-		board.addShip(galeon, new Coordinate(0,1));
+		board.addCraft(galeon, new Coordinate(0,1));
 		assertFalse("numCrafts=1; destroyedCrafts=0",board.areAllCraftsDestroyed());
-		board.addShip(fragata, new Coordinate(3,1));
+		board.addCraft(fragata, new Coordinate(3,1));
 		assertFalse("numCrafts=2; destroyedCrafts=0",board.areAllCraftsDestroyed());
 		fail ("Termina las pruebas 3, 4 y 5");
 	}
@@ -211,7 +214,7 @@ public class BoardPreTest {
 	 */
 	@Test
 	public void testGetNeighborhoodShipCompletelyIn1() {
-		board.addShip(fragata, new Coordinate(5,1));
+		board.addCraft(fragata, new Coordinate(5,1));
 		Set<Coordinate> neighborhood = board.getNeighborhood(fragata);
 		assertEquals(12,neighborhood.size());
 		for (int i=5; i<10; i++) {
@@ -245,7 +248,7 @@ public class BoardPreTest {
 	 */
 	@Test
 	public void testShowBoardEmty() {
-		board = new Board(5);
+		board = new Board2D(5);
 		String hideShips = board.show(false);
 		assertEquals(sboardHide1,hideShips);
 		String showShips = board.show(true);
@@ -261,11 +264,11 @@ public class BoardPreTest {
 	 */
 	@Test
 	public void testShowBoardWithShips() {
-		board = new Board(5);
-		board.addShip(galeon, new Coordinate(-2,-1));
-		board.addShip(fragata, new Coordinate(1,-2));
-		board.addShip(bergantin, new Coordinate(2,-1));
-		board.addShip(goleta, new Coordinate(-1,-2));
+		board = new Board2D(5);
+		board.addCraft(galeon, new Coordinate(-2,-1));
+		board.addCraft(fragata, new Coordinate(1,-2));
+		board.addCraft(bergantin, new Coordinate(2,-1));
+		board.addCraft(goleta, new Coordinate(-1,-2));
 		assertEquals(sboardHide1,board.show(false));
 		assertEquals(sboard,board.show(true));
 

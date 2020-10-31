@@ -17,12 +17,15 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.ship.Board2D;
+import model.ship.Ship;
+
 public class BoardTest {
 
 	static final int MAX_BOARD_SIZE = 20;
 	static final int  MIN_BOARD_SIZE = 5;
 	final static int DIM = 10;
-	Board board;
+	Board2D board;
 	Ship fragata, galeon, bergantin, goleta;
 	static String sboardEmpty,sboard, sboardHide1, sboardHits1,
 				sboardHits2,sboardHits3, sboardHide2; //= new String();
@@ -70,7 +73,7 @@ public class BoardTest {
 		galeon = new Ship(Orientation.SOUTH,'A',"Francis Drake");
 		bergantin = new Ship(Orientation.EAST,'B',"Benito Soto");
 		goleta = new Ship(Orientation.NORTH,'G',"Hook");
-		board = new Board(DIM);
+		board = new Board2D(DIM);
 		
 	}
 
@@ -78,13 +81,13 @@ public class BoardTest {
 	 */
 	@Test
 	public void testBoardGetSize() {
-		Board board = new Board(MIN_BOARD_SIZE-1);
+		Board board = new Board2D(MIN_BOARD_SIZE-1);
 		assertEquals(MIN_BOARD_SIZE,board.getSize());
-		board = new Board(MAX_BOARD_SIZE+1);
+		board = new Board2D(MAX_BOARD_SIZE+1);
 		assertEquals(MIN_BOARD_SIZE,board.getSize());
-		board = new Board(MIN_BOARD_SIZE+1);
+		board = new Board2D(MIN_BOARD_SIZE+1);
 		assertEquals(MIN_BOARD_SIZE+1,board.getSize());
-		board = new Board(MAX_BOARD_SIZE-1);
+		board = new Board2D(MAX_BOARD_SIZE-1);
 		assertEquals(MAX_BOARD_SIZE-1,board.getSize());
 	}
 	
@@ -94,7 +97,7 @@ public class BoardTest {
 	@Test
 	public void testCheckCoordinate() {
 		final int SIZE = 15;
-		Board board = new Board(SIZE);
+		Board2D board = new Board2D(SIZE);
 		assertFalse(board.checkCoordinate(new Coordinate(0,SIZE)));
 		assertFalse(board.checkCoordinate(new Coordinate(-1,SIZE-1)));
 		assertFalse(board.checkCoordinate(new Coordinate(-1,SIZE)));
@@ -111,18 +114,18 @@ public class BoardTest {
 	 */
 	@Test
 	public void testAddShipsOk() {
-		assertTrue(board.addShip(galeon, new Coordinate(0,1)));
+		assertTrue(board.addCraft(galeon, new Coordinate(0,1)));
 		for (int i=2; i<5; i++)	
-			assertNotNull("x,y = 2,"+i,board.getShip(new Coordinate(2,i)));
-		assertTrue(board.addShip(fragata, new Coordinate(5,1)));
+			assertNotNull("x,y = 2,"+i,board.getCraft(new Coordinate(2,i)));
+		assertTrue(board.addCraft(fragata, new Coordinate(5,1)));
 		for (int i=6; i<9; i++)	
-			assertNotNull("x,y = "+i+"3",board.getShip(new Coordinate(i,3)));
-		assertTrue(board.addShip(goleta, new Coordinate(0,5)));
+			assertNotNull("x,y = "+i+"3",board.getCraft(new Coordinate(i,3)));
+		assertTrue(board.addCraft(goleta, new Coordinate(0,5)));
 		for (int i=6; i<9; i++)	
-			assertNotNull("x,y = 2,"+i,board.getShip(new Coordinate(2,i)));
-		assertTrue(board.addShip(bergantin, new Coordinate(4,3)));
+			assertNotNull("x,y = 2,"+i,board.getCraft(new Coordinate(2,i)));
+		assertTrue(board.addCraft(bergantin, new Coordinate(4,3)));
 		for (int i=5; i<8; i++)	
-			assertNotNull("x,y = "+i+"5",board.getShip(new Coordinate(i,5)));
+			assertNotNull("x,y = "+i+"5",board.getCraft(new Coordinate(i,5)));
 	}
 
 	/* Posicionamiento correcto Ships en los límites del Board. Se comprueba que 
@@ -131,18 +134,18 @@ public class BoardTest {
 	 */
 	@Test
 	public void testAddShipsOkLimits() {
-		assertTrue(board.addShip(galeon, new Coordinate(-2,-1)));
+		assertTrue(board.addCraft(galeon, new Coordinate(-2,-1)));
 		for (int i=0; i<3; i++)	
-			assertNotNull("x,y = 0,"+i,board.getShip(new Coordinate(0,i)));
-		assertTrue(board.addShip(fragata, new Coordinate(-1,7)));
+			assertNotNull("x,y = 0,"+i,board.getCraft(new Coordinate(0,i)));
+		assertTrue(board.addCraft(fragata, new Coordinate(-1,7)));
 		for (int i=0; i<3; i++)	
-			assertNotNull("x,y = "+i+"9",board.getShip(new Coordinate(i,9)));
-		assertTrue(board.addShip(goleta, new Coordinate(7,6)));
+			assertNotNull("x,y = "+i+"9",board.getCraft(new Coordinate(i,9)));
+		assertTrue(board.addCraft(goleta, new Coordinate(7,6)));
 		for (int i=7; i<10; i++) 
-			assertNotNull("x,y = 9,"+i,board.getShip(new Coordinate(9,i)));
-		assertTrue(board.addShip(bergantin, new Coordinate(6,-2)));
+			assertNotNull("x,y = 9,"+i,board.getCraft(new Coordinate(9,i)));
+		assertTrue(board.addCraft(bergantin, new Coordinate(6,-2)));
 		for (int i=7; i<10; i++) 
-			assertNotNull("x,y = "+i+"0",board.getShip(new Coordinate(i,0)));
+			assertNotNull("x,y = "+i+"0",board.getCraft(new Coordinate(i,0)));
 	}
 	
 	/* Posicionamiento Ships fuera del tablero. Se comprueba, además, que no añade
@@ -150,18 +153,18 @@ public class BoardTest {
 	 */
 	@Test
 	public void testAddShipsOutOfBoard() {
-		assertFalse(board.addShip(galeon, new Coordinate(0,7)));
+		assertFalse(board.addCraft(galeon, new Coordinate(0,7)));
 		for (int i=8; i<11; i++) 
-			assertNull("x,y = 2,"+i,board.getShip(new Coordinate(2,i)));
-		assertFalse(board.addShip(fragata, new Coordinate(7,3)));
+			assertNull("x,y = 2,"+i,board.getCraft(new Coordinate(2,i)));
+		assertFalse(board.addCraft(fragata, new Coordinate(7,3)));
 		for (int i=8; i<11; i++) 
-			assertNull("x,y = "+i+"5",board.getShip(new Coordinate(i,5)));		
-		assertFalse(board.addShip(goleta, new Coordinate(-2,-2)));
+			assertNull("x,y = "+i+"5",board.getCraft(new Coordinate(i,5)));		
+		assertFalse(board.addCraft(goleta, new Coordinate(-2,-2)));
 		for (int i=-1; i<2; i++) 
-			assertNull("x,y = 0,"+i,board.getShip(new Coordinate(0,i)));
-		assertFalse(board.addShip(bergantin, new Coordinate(-2,7)));
+			assertNull("x,y = 0,"+i,board.getCraft(new Coordinate(0,i)));
+		assertFalse(board.addCraft(bergantin, new Coordinate(-2,7)));
 		for (int i=8; i<11; i++) 
-			assertNull("x,y = "+i+"0",board.getShip(new Coordinate(i,0)));
+			assertNull("x,y = "+i+"0",board.getCraft(new Coordinate(i,0)));
 	}
 	
 	/* Posicionamiento incorrecto Ship por proximidad con otro. Se comprueba, además, que 
@@ -169,10 +172,10 @@ public class BoardTest {
 	 */
 	@Test
 	public void testAddShipNextOther() {
-		assertTrue(board.addShip(galeon, new Coordinate(0,1)));
-		assertFalse(board.addShip(fragata, new Coordinate(2,0)));
+		assertTrue(board.addCraft(galeon, new Coordinate(0,1)));
+		assertFalse(board.addCraft(fragata, new Coordinate(2,0)));
 		for (int i=3; i<6; i++) 
-			assertNull("x,y = "+i+"2",board.getShip(new Coordinate(i,2)));
+			assertNull("x,y = "+i+"2",board.getCraft(new Coordinate(i,2)));
 	}
 	
 	/* Posicionamiento incorrecto Ship por solapamento con otro. Se comprueba, además, que 
@@ -180,10 +183,10 @@ public class BoardTest {
 	 */
 	@Test
 	public void testAddShipOcuppied() {
-		assertTrue(board.addShip(galeon, new Coordinate(0,1)));
-		assertFalse(board.addShip(fragata, new Coordinate(1,0)));
+		assertTrue(board.addCraft(galeon, new Coordinate(0,1)));
+		assertFalse(board.addCraft(fragata, new Coordinate(1,0)));
 		for (int i=3; i<5; i++) 
-			assertNull("x,y = "+i+"2",board.getShip(new Coordinate(i,2)));
+			assertNull("x,y = "+i+"2",board.getCraft(new Coordinate(i,2)));
 	}
 	
 	/* Se posiciona un Ship en una Coordinate.
@@ -192,12 +195,12 @@ public class BoardTest {
 	 */
 	@Test
 	public void testGetShip() {
-		assertTrue(board.addShip(fragata, new Coordinate(3,1)));
+		assertTrue(board.addCraft(fragata, new Coordinate(3,1)));
 		Coordinate c = new Coordinate(2,3);
-		assertNull(board.getShip(c));
+		assertNull(board.getCraft(c));
 		for (int i=4; i<7; i++) {
 			c.set(0, i);
-		    assertNotNull(board.getShip(c));
+		    assertNotNull(board.getCraft(c));
 		}
 	}
 	
@@ -207,11 +210,11 @@ public class BoardTest {
 	 */
 	@Test
 	public void testAgregacionBoardShip() {
-	    board.addShip(fragata, new Coordinate(3,1));
+	    board.addCraft(fragata, new Coordinate(3,1));
 		Coordinate c = new Coordinate(0,3);
 		for (int i=4; i<7; i++) {
 			c.set(0, i);
-		    assertSame(fragata,board.getShip(c));
+		    assertSame(fragata,board.getCraft(c));
 		}
 	}
 	
@@ -238,7 +241,7 @@ public class BoardTest {
    * vistas */
 	@Test
 	public void testIsSeen2() {
-		board.addShip(galeon, new Coordinate(0,1));
+		board.addCraft(galeon, new Coordinate(0,1));
 		for (int i=2; i<5; i++) {
 				assertFalse("x,y = 2,"+i,board.isSeen(new Coordinate(2,i)));
 				board.hit(new Coordinate(2,i));
@@ -258,7 +261,7 @@ public class BoardTest {
 	    @SuppressWarnings("unchecked")
 		@Test
 		public void testCompositionBoardCoordinate() throws Exception {
-			board.addShip(galeon, new Coordinate(0,1));
+			board.addCraft(galeon, new Coordinate(0,1));
 			List<Coordinate> listHits=new ArrayList<Coordinate>();  //Para los disparos 
 			Coordinate c;
 			//Se dispara al ship
@@ -287,7 +290,7 @@ public class BoardTest {
 	 */
 	@Test
 	public void testHit() {
-		board.addShip(galeon, new Coordinate(5,5));
+		board.addCraft(galeon, new Coordinate(5,5));
 		for (int i=5; i<board.getSize(); i++) 
 		  for (int j=5; j<board.getSize(); j++) {
 		     if ( (i!=7) || (j<6) ||(j>8) ){
@@ -316,9 +319,9 @@ public class BoardTest {
 	@Test
 	public void testAreAllCraftsDestroyed() {
 		assertTrue("numCrafts=destroyedCrafts=0",board.areAllCraftsDestroyed());
-		board.addShip(galeon, new Coordinate(0,1));
+		board.addCraft(galeon, new Coordinate(0,1));
 		assertFalse("numCrafts=1; destroyedCrafts=0",board.areAllCraftsDestroyed());
-		board.addShip(fragata, new Coordinate(3,1));
+		board.addCraft(fragata, new Coordinate(3,1));
 		assertFalse("numCrafts=2; destroyedCrafts=0",board.areAllCraftsDestroyed());
 		//Destruimos el Ship galeon
 		for (int i=2; i<5; i++) {
@@ -331,7 +334,7 @@ public class BoardTest {
 		}
 		board.hit(new Coordinate(6,3));
 		assertTrue("numCrafts=destroyedCrafts=2",board.areAllCraftsDestroyed());
-		board.addShip(galeon, new Coordinate(0,5));
+		board.addCraft(galeon, new Coordinate(0,5));
 		assertFalse("numCrafts=3; destroyedCrafts=2",board.areAllCraftsDestroyed());
 	}
 
@@ -364,7 +367,7 @@ public class BoardTest {
 	 */
 	@Test
 	public void testGetNeighborhoodShipCompletelyIn1() {
-		board.addShip(fragata, new Coordinate(5,1));
+		board.addCraft(fragata, new Coordinate(5,1));
 		Set<Coordinate> neighborhood = board.getNeighborhood(fragata);
 		assertEquals(12,neighborhood.size());
 		for (int i=5; i<10; i++) {
@@ -382,7 +385,7 @@ public class BoardTest {
 	 */
 	@Test
 	public void testGetNeighborhoodShipCompletelyIn2() {
-		board.addShip(fragata, new Coordinate(6,-2));
+		board.addCraft(fragata, new Coordinate(6,-2));
 		Set<Coordinate> neighborhood = board.getNeighborhood(fragata);
 		assertEquals(5,neighborhood.size());
 		for (int i=6; i<10; i++) {
@@ -422,7 +425,7 @@ public class BoardTest {
 	 */
 	@Test
 	public void testShowBoardEmty() {
-		board = new Board(5);
+		board = new Board2D(5);
 		String hideShips = board.show(false);
 		assertEquals(sboardHide1,hideShips);
 		String showShips = board.show(true);
@@ -438,11 +441,11 @@ public class BoardTest {
 	 */
 	@Test
 	public void testShowBoardWithShips() {
-		board = new Board(5);
-		board.addShip(galeon, new Coordinate(-2,-1));
-		board.addShip(fragata, new Coordinate(1,-2));
-		board.addShip(goleta, new Coordinate(2,1));
-		board.addShip(bergantin, new Coordinate(-1,2));
+		board = new Board2D(5);
+		board.addCraft(galeon, new Coordinate(-2,-1));
+		board.addCraft(fragata, new Coordinate(1,-2));
+		board.addCraft(goleta, new Coordinate(2,1));
+		board.addCraft(bergantin, new Coordinate(-1,2));
 		String hideShips = board.show(false);
 		assertEquals(sboardHide1,hideShips);
 		
@@ -462,11 +465,11 @@ public class BoardTest {
 	 */
 	@Test
 	public void testShowBoardWithShipsAndHits() {
-		board = new Board(5);
-		board.addShip(galeon, new Coordinate(-2,-1));
-		board.addShip(fragata, new Coordinate(1,-2));
-		board.addShip(goleta, new Coordinate(2,1));
-		board.addShip(bergantin, new Coordinate(-1,2));
+		board = new Board2D(5);
+		board.addCraft(galeon, new Coordinate(-2,-1));
+		board.addCraft(fragata, new Coordinate(1,-2));
+		board.addCraft(goleta, new Coordinate(2,1));
+		board.addCraft(bergantin, new Coordinate(-1,2));
 		//Se dispara sobre el galeón, hundiéndolo
 		board.hit(new Coordinate(0,0));
 		board.hit(new Coordinate(0,1));
@@ -498,10 +501,10 @@ public class BoardTest {
 	 */
 	@Test
 	public void testToString1() {
-		board.addShip(galeon, new Coordinate(0,1));
-		board.addShip(fragata, new Coordinate(5,1));
-		board.addShip(goleta, new Coordinate(0,5));
-		board.addShip(bergantin, new Coordinate(4,3));
+		board.addCraft(galeon, new Coordinate(0,1));
+		board.addCraft(fragata, new Coordinate(5,1));
+		board.addCraft(goleta, new Coordinate(0,5));
+		board.addCraft(bergantin, new Coordinate(4,3));
 		assertEquals("Board 10; crafts: 4; destroyed: 0",board.toString());
 	}
 	
@@ -510,8 +513,8 @@ public class BoardTest {
      */
 	@Test
 	public void testToString2() {		
-		board.addShip(galeon, new Coordinate(0,1));	
-		board.addShip(fragata, new Coordinate(3,1));	
+		board.addCraft(galeon, new Coordinate(0,1));	
+		board.addCraft(fragata, new Coordinate(3,1));	
 		//Destruimos el Ship galeon
 		for (int i=2; i<5; i++) {
 			board.hit(new Coordinate(2,i));
@@ -524,7 +527,7 @@ public class BoardTest {
 		
 		board.hit(new Coordinate(6,3));
 		assertEquals("Board 10; crafts: 2; destroyed: 2",board.toString());
-		board.addShip(galeon, new Coordinate(0,5));
+		board.addCraft(galeon, new Coordinate(0,5));
 		assertEquals("Board 10; crafts: 3; destroyed: 2",board.toString());
 	}
 

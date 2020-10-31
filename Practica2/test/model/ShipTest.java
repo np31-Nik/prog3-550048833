@@ -15,11 +15,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.ship.Ship;
+
 public class ShipTest {
 	final static int BOUNDING_SQUARE_SIZE = 5;
 	static ArrayList<Coordinate> north, east, south, west;
     static String sNorth, sEast, sSouth, sWest;
-	Ship bergantin, goleta, fragata, galeon;
+	Craft bergantin, goleta, fragata, galeon;
     final int shape[][] = new int[][] {
 	      { 0, 0, 0, 0, 0,
 	    	0, 0, 1, 0, 0,	
@@ -360,7 +362,7 @@ public class ShipTest {
 	
 	//FUNCIONES DE APOYO
 	
-	void getAbsolutePositionsShip (Coordinate cpos, Ship ship, List<Coordinate> orient ) {
+	void getAbsolutePositionsShip (Coordinate cpos, Craft ship, List<Coordinate> orient ) {
 	   ship.setPosition(cpos);
 	   Set<Coordinate> pos = ship.getAbsolutePositions();
 	   for (Coordinate c: orient)

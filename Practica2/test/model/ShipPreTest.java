@@ -9,11 +9,13 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import model.ship.Ship;
+
 public class ShipPreTest {
 	final static int BOUNDING_SQUARE_SIZE = 5;
 	static ArrayList<Coordinate> north, east, south, west;
     static String sNorth, sEast, sSouth, sWest;
-	Ship bergantin, goleta, fragata, galeon;
+	Craft bergantin, goleta, fragata, galeon;
     final static int shape[][] = new int[][] {
 	      { 0, 0, 0, 0, 0,
 	    	0, 0, 1, 0, 0,	

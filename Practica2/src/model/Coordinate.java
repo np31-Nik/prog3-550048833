@@ -20,29 +20,38 @@ public abstract class Coordinate{
 	/**
 	 * Dimensión de la coordenada.
 	 */
-	private int dim;
+	private int dim;	
 	
 	
+	protected Coordinate(int dim) {
+		this.dim=dim;		
+	}
 	/**
 	 * Constructor
 	 * @param x columna
 	 * @param y fila
 	 */
-	public Coordinate(int x, int y){
+	protected Coordinate(int x, int y){
         dim = 2;
         components = new int[dim];
         components[0]=x;
         components[1]=y;
 	}
 	
+	protected Coordinate(int x, int y,int z){
+        dim = 3;
+        components = new int[dim];
+        components[0]=x;
+        components[1]=y;
+        components[2]=z;
+	}
+	
 	/**
 	 * Constructor.
 	 * @param c Coordenada
 	 */
-	public Coordinate(Coordinate c){
-		dim=2;
-        components = new int[dim];
-	
+	protected Coordinate(Coordinate c){
+		this.dim=c.getDim();
         for (int i=0;i<dim;i++) {
             components[i]=c.components[i];
         }
@@ -57,9 +66,7 @@ public abstract class Coordinate{
             components[component] = value;
         }
         else {
-            System.err.print("Error in Coordinate.get, component ");
-            System.err.print(component);
-            System.err.println(" is out of range");
+            throw new IllegalArgumentException("Componente fuera de rango");
         }
 	}
 	
@@ -73,41 +80,20 @@ public abstract class Coordinate{
             return components[component];
         }
         else {
-            System.err.print("Error in Coordinate.get, component ");
-            System.err.print(component);
-            System.err.println(" is out of range");
+            throw new IllegalArgumentException("Componente fuera de rango");
         }
-
-        return -1;
 	}
 	/**
 	 * Método adjacentCoordinates.
 	 * @return el conjunto de coordenadas
 	 */
-	public Set<Coordinate> adjacentCoordinates(){
-		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
-		
-		for(int ax=-1;ax<=1;ax++) {
-			for(int ay=-1;ay<=1;ay++) {
-				if(!(ay==0 && ax==0)) {
-					Coordinate c=new Coordinate(ax,ay);
-					conjunto_coordinate.add(this.subtract(c));
-				}
-			}
-		}
-		
-		return conjunto_coordinate;
-	
-	}
+	public abstract Set<Coordinate> adjacentCoordinates();
 	
 	/**
 	 * Método copy.
 	 * @return la coordenada copia
 	 */
-	public Coordinate copy() {
-		Coordinate c=new Coordinate(this);
-		return c;
-	}
+	public abstract Coordinate copy();
 	
 	
 	/**
@@ -116,10 +102,19 @@ public abstract class Coordinate{
 	 * @return la nueva coordenada.
 	 */
 	public Coordinate add(Coordinate c){
-        Coordinate new_c= new Coordinate(this);
-        
+        Coordinate new_c=this.copy();
+        if(c!=null) {
         for (int i=0; i<dim; i++) {
-        new_c.set(i, new_c.get(i) + c.get(i));
+        	if(i==2 && c.dim<this.dim) {
+        		new_c.set(i, new_c.get(i));
+        	}else if(i==2 && c.dim>this.dim) {
+        		new_c.set(i, c.get(i));
+        	}else {
+        		new_c.set(i, new_c.get(i) + c.get(i));
+        	}
+        }
+        }else {
+        	throw new NullPointerException("Coordenada nula");
         }
         return new_c;
 	}
@@ -130,11 +125,17 @@ public abstract class Coordinate{
 	 * @return la nueva coordenada.
 	 */
 	public final Coordinate subtract(Coordinate c){
-        Coordinate new_c= new Coordinate(this);
+        Coordinate new_c=this.copy();
         
         for (int i=0; i<dim; i++) {
-            new_c.set(i, new_c.get(i) - c.get(i));
-        }               
+        	if(i==2 && c.dim<this.dim) {
+        		new_c.set(i, new_c.get(i));
+        	}else if(i==2 && c.dim>this.dim) {
+        		new_c.set(i, c.get(i));
+        	}else {
+        		new_c.set(i, new_c.get(i) - c.get(i));
+        	}    
+        }
         return new_c;
 	}
 	
@@ -142,20 +143,7 @@ public abstract class Coordinate{
 	 * Método toString.
 	 * @return la cadena.
 	 */
-	public final String toString() {
-		   String concatenation="";
-		   concatenation += "(";
-		   for (int i = 0;i < dim;i++)
-		   {
-			  concatenation += components[i];
-			  if (i < dim - 1) 
-			  {
-				 concatenation += ", ";
-			  }
-		   }
-		   concatenation += ")";
-		   return concatenation;
-	}
+	public abstract String toString();
 	
 	/**
 	 * Método hashCode.
@@ -188,6 +176,19 @@ public abstract class Coordinate{
 			return false;
 		return true;
 	}
+	public int[] getComponents() {
+		return components;
+	}
+	public void setComponents(int[] components) {
+		this.components = components;
+	}
+	public int getDim() {
+		return dim;
+	}
+	public void setDim(int dim) {
+		this.dim = dim;
+	}
+	
 }
 
 
