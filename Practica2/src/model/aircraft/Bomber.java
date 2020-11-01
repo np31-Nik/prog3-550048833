@@ -1,8 +1,16 @@
 package model.aircraft;
 
 import model.Orientation;
-
+/**
+ * Clase Bomber
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class Bomber extends Aircraft {
+	/**
+	 * Constructor
+	 * @param o orientacion
+	 */
 	public Bomber(Orientation o) {
 		super(o,'⇶',"Bomber");
 		shape = new int[][] {

@@ -1,8 +1,16 @@
 package model.aircraft;
 
 import model.Orientation;
-
+/**
+ * Clase Transport
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class Transport extends Aircraft {
+	/**
+	 * Constructor
+	 * @param o orientacion
+	 */
 	public Transport(Orientation o) {
 		super(o,'⇋',"Transport");
 		shape = new int[][] {

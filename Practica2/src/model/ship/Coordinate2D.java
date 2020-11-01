@@ -5,16 +5,31 @@ import java.util.Set;
 
 import model.Coordinate;
 import model.CoordinateFactory;
-
+/**
+ * Clase COordinate2D
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class Coordinate2D extends model.Coordinate {
+	/**
+	 * Constructor
+	 * @param x la x
+	 * @param y la y
+	 */
 	public Coordinate2D(int x, int y) {
 		super(x,y);
 	}
-	
+	/**
+	 * Constructor
+	 * @param c la coordenada
+	 */
 	public Coordinate2D(Coordinate2D c) {
 		super(c);
 	}
-	
+	/**
+	 * Metodo adjacent coordinates
+	 * @return el conjunto
+	 */
 	public Set<Coordinate> adjacentCoordinates() {
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
 		for(int ax=-1;ax<=1;ax++) {
@@ -30,12 +45,18 @@ public class Coordinate2D extends model.Coordinate {
 	
 		
 	}
-	
+	/**
+	 * Metodo copy
+	 * @return copia
+	 */
 	public Coordinate2D copy() {
 		Coordinate2D c=new Coordinate2D(this);
 		return c;
 	}
-	
+	/**
+	 * Metodo tostring
+	 * @return el string
+	 */
 	public String toString() {
 		String concatenation="";
 		   concatenation += "(";

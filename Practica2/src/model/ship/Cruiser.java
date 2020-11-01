@@ -1,8 +1,16 @@
 package model.ship;
 
 import model.Orientation;
-
+/**
+ * Clase Cruiser
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class Cruiser extends Ship{
+	/**
+	 * Constructor
+	 * @param o orientacion
+	 */
 	public Cruiser(Orientation o) {
 		super(o,'Ø',"Cruiser");
 		shape = new int[][] {

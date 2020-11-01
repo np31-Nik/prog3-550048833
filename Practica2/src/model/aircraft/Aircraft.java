@@ -4,7 +4,7 @@ import model.Craft;
 import model.Orientation;
 
 /**
- * Clase Ship
+ * Clase Aircraft
  *
  */
 public abstract class Aircraft extends Craft {

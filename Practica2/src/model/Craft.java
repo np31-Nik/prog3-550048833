@@ -6,7 +6,11 @@ import java.util.Set;
 import model.aircraft.Coordinate3D;
 import model.exceptions.CoordinateAlreadyHitException;
 import model.ship.Coordinate2D;
-
+/**
+ * Clase Craft
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public abstract class Craft {
 
 	/**
@@ -66,7 +70,12 @@ public abstract class Craft {
 	 * posicion del barco
 	 */
 	private Coordinate position;
-
+/**
+ * Constructor
+ * @param o orientacion
+ * @param s simbolo
+ * @param n nombre
+ */
 	
 	public Craft(Orientation o, char s, String n) {
 		orientation=o;

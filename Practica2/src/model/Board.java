@@ -10,7 +10,11 @@ import model.exceptions.InvalidCoordinateException;
 import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
 import model.ship.Ship;
-
+/**
+ * Clase board
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public abstract class Board {
 
 	/**
@@ -33,7 +37,9 @@ public abstract class Board {
 	 * Tamaño minimo del tablero
 	 */
 	public static int MIN_BOARD_SIZE = 5;
-	
+	/**
+	 * Caracter separador de los tableros
+	 */
 	public char Board_SEPARATOR ='|';
 	/**
 	 * Tamaño del tablero
@@ -48,18 +54,29 @@ public abstract class Board {
 	 */
 	protected int destroyedCrafts;
 	/**
-	 * Conjunto tipo mapa del tablero
+	 * Mapa tablero
 	 */
 	private Map<Coordinate,Craft> board = new HashMap<Coordinate,Craft>();
 	/**
 	 * Conjunto set de las coordenadas vistas
 	 */
 	protected Set<Coordinate> seen = new HashSet<Coordinate>();
-
+/**
+ * Metodo checkcoordinate
+ * @param c la coordenada
+ * @return verdadero si esta dentro de los limites
+ */
 	abstract public boolean checkCoordinate(Coordinate c);
-	
+	/**
+	 * Metodo show
+	 * @param unveil si se ve el tablero
+	 * @return el tablero
+	 */
 	public abstract String show(boolean unveil);
-
+/**
+ * Constructor con size
+ * @param size el tamaño
+ */
 	public Board(int size) {
 		if(size<MIN_BOARD_SIZE || size>MAX_BOARD_SIZE) {
 			throw new IllegalArgumentException("Tamaño del tablero fuera de limites");
@@ -80,7 +97,7 @@ public abstract class Board {
 
 	/**
 	 * Metodo addShip.
-	 * @param ship el barco
+	 * @param craft el barco
 	 * @param position la coordenada
 	 * @return verdadero si se ha agregado.
 	 * @throws InvalidCoordinateException 
@@ -245,11 +262,17 @@ public abstract class Board {
 	public String toString() {
 			return "Board "+size+"; crafts: "+numCrafts+"; destroyed: "+destroyedCrafts;
 	}
-
+/**
+ * Metodo que devuelve el mapa del tablero
+ * @return el mapa del tablero
+ */
 	public Map<Coordinate, Craft> getBoard() {
 		return board;
 	}
-
+/**
+ * Metodo set del tablero
+ * @param board el tablero nuevo
+ */
 	public void setBoard(Map<Coordinate, Craft> board) {
 		this.board = board;
 	}

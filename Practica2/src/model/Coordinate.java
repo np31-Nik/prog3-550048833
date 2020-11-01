@@ -22,7 +22,10 @@ public abstract class Coordinate{
 	 */
 	private int dim;	
 	
-	
+	/**
+	 * Constructor con dimension
+	 * @param dim la dimension
+	 */
 	protected Coordinate(int dim) {
 		this.dim=dim;		
 	}
@@ -37,7 +40,12 @@ public abstract class Coordinate{
         components[0]=x;
         components[1]=y;
 	}
-	
+	/**
+	 * Constructor con 3 dimensiones
+	 * @param x dimension x
+	 * @param y dimension y
+	 * @param z dimension z
+	 */
 	protected Coordinate(int x, int y,int z){
         dim = 3;
         components = new int[dim];
@@ -185,15 +193,31 @@ public abstract class Coordinate{
 			return false;
 		return true;
 	}
+	/**
+	 * Getter de components
+	 * @return las componentes
+	 */
 	public int[] getComponents() {
 		return components;
 	}
+	/**
+	 * Setter de components
+	 * @param components las componentes nuevas
+	 */
 	public void setComponents(int[] components) {
 		this.components = components;
 	}
+	/**
+	 * Getter de dim
+	 * @return la dimension
+	 */
 	public int getDim() {
 		return dim;
 	}
+	/**
+	 * Setter de dim
+	 * @param dim la dimension
+	 */
 	public void setDim(int dim) {
 		this.dim = dim;
 	}
