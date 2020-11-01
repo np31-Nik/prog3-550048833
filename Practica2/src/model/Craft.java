@@ -3,7 +3,9 @@ package model;
 import java.util.HashSet;
 import java.util.Set;
 
+import model.aircraft.Coordinate3D;
 import model.exceptions.CoordinateAlreadyHitException;
+import model.ship.Coordinate2D;
 
 public abstract class Craft {
 
@@ -188,7 +190,11 @@ public abstract class Craft {
 				
 				x=x+c.get(0);
 				y=y+c.get(1);
-				conjunto_coordinate.add(new Coordinate(x,y));
+				if(c instanceof Coordinate3D)
+					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y,c.get(2)}));
+				else if (c instanceof Coordinate2D)
+					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y}));
+
 			}
 		}
 		return conjunto_coordinate;
@@ -224,7 +230,7 @@ public abstract class Craft {
 			break;
 		}
 		
-		for(int i=0;i<25;i++) {
+		for(int i=0;i<BOUNDING_SQUARE_SIZE*BOUNDING_SQUARE_SIZE;i++) {
 			if(shape[ori][i]==CRAFT_VALUE) {
 				x=i/BOUNDING_SQUARE_SIZE;
 				if(i>BOUNDING_SQUARE_SIZE) {
@@ -232,7 +238,11 @@ public abstract class Craft {
 				}else {
 					y=i;
 				}
-				conjunto_coordinate.add(new Coordinate(x,y));
+				if(position instanceof Coordinate3D)
+					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y,0}));
+				else if(position instanceof Coordinate2D)
+					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y}));
+
 			}
 		}
 		return conjunto_coordinate;
@@ -274,6 +284,8 @@ public abstract class Craft {
 			}else {
 				throw new CoordinateAlreadyHitException(c);
 			}
+		}else {
+			throw new NullPointerException("Fuera de rango");
 		}
 		return HIT;
 	}
@@ -340,6 +352,8 @@ public abstract class Craft {
 			if(shape[ori][pos]==HIT_VALUE) {
 					HIT=true;
 			}
+		}else {
+			throw new NullPointerException("Fuera de rango");
 		}
 		return HIT;
 	}

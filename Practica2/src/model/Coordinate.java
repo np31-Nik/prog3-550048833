@@ -52,9 +52,18 @@ public abstract class Coordinate{
 	 */
 	protected Coordinate(Coordinate c){
 		this.dim=c.getDim();
-        for (int i=0;i<dim;i++) {
-            components[i]=c.components[i];
-        }
+		if(c.getDim()==2) {
+			 dim = 2;
+		        components = new int[dim];
+		        components[0]=c.components[0];
+		        components[1]=c.components[1];
+		}else {
+			   dim = 3;
+		        components = new int[dim];
+		        components[0]=c.components[0];
+		        components[1]=c.components[1];
+		        components[2]=c.components[2];	
+		}
 	}
 	/**
 	 * Método set.

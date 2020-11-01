@@ -2,6 +2,7 @@ package model.ship;
 
 import model.Board;
 import model.Coordinate;
+import model.CoordinateFactory;
 import model.Craft;
 
 /**
@@ -21,7 +22,9 @@ public Board2D(int size) {
  * @param c la coordenada
  * @return true si esta dentro del tablero, false si esta fuera.
  */
+@Override
 public boolean checkCoordinate(Coordinate c) {
+	if(c instanceof Coordinate2D) {
 	boolean check=true;
 	int a=c.get(0);
 	int b=c.get(1);
@@ -34,6 +37,9 @@ public boolean checkCoordinate(Coordinate c) {
 	}
 	
 	return check;
+	}else {
+		throw new IllegalArgumentException("Coordenada no es 2D");
+	}
 	
 }
 /**
@@ -41,6 +47,7 @@ public boolean checkCoordinate(Coordinate c) {
  * @param unveil true=vista del dueño, false=vista del oponente
  * @return un string del tablero
  */
+@Override
 public String show(boolean unveil) {
 	String tablero="";
 	Craft barco;
@@ -48,9 +55,9 @@ public String show(boolean unveil) {
 	if(unveil) {
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				barco = board.get(new Coordinate(j,i));
+				barco = super.getBoard().get(CoordinateFactory.createCoordinate(new int[]{j,i}));
 					if(barco!=null) {
-						if(barco.isHit(new Coordinate(j,i))) {
+						if(barco.isHit(CoordinateFactory.createCoordinate(new int[]{j,i}))) {
 							tablero+=HIT_SYMBOL;
 						}else
 						tablero+=barco.getSymbol();		
@@ -64,11 +71,11 @@ public String show(boolean unveil) {
 	}else{
 		for(int i=0;i<size;i++) {
 			for(int j=0;j<size;j++) {
-				barco = board.get(new Coordinate(j,i));
-				if(!seen.contains(new Coordinate(j,i))) {
+				barco = super.getBoard().get(CoordinateFactory.createCoordinate(new int[]{j,i}));
+				if(!seen.contains(CoordinateFactory.createCoordinate(new int[]{j,i}))) {
 					tablero+=NOTSEEN_SYMBOL;
 				}else {
-					if(barco!= null && barco.isHit(new Coordinate(j,i))) {
+					if(barco!= null && barco.isHit(CoordinateFactory.createCoordinate(new int[]{j,i}))) {
 						if(barco.isShotDown()) {
 							tablero+=barco.getSymbol();
 						}else {

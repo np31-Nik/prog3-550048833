@@ -11,11 +11,9 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import model.ship.Coordinate2D;
-
 public class CoordinateTestP1{
 	
-    List<int[]> vcoordinates = new ArrayList<int[]>();
+    List vcoordinates = new ArrayList<int[]>();
     int []vcoor= {0,0,-70,-2,20}; //Para crear coordenadas
     final int DIM = vcoor.length;
     List<Coordinate> lcoor;
@@ -25,7 +23,7 @@ public class CoordinateTestP1{
 		lcoor = new ArrayList<Coordinate>();
 		//Se crean las Coordinate (0,0),(0,-70), (-70,-2),(-2,20);
 		for (int i=0; i<DIM-1; i++) {
-			lcoor.add(new Coordinate2D(vcoor[i],vcoor[i+1]));
+			lcoor.add(new Coordinate(vcoor[i],vcoor[i+1]));
 		}
 		
 	}
@@ -33,7 +31,7 @@ public class CoordinateTestP1{
 	@Test
 	public void testHashCode() {
 		Coordinate c1 = lcoor.get(2);
-		Coordinate c2 = new Coordinate2D((Coordinate2D)c1);
+		Coordinate c2 = new Coordinate(c1);
 		/* Se comprueba que cuando dos Coordinate son iguales, el resultado 
 		 * del hash ha de ser el mismo.
 		 * Si los Coordinate son distintos el hash puede ser igual o no.
@@ -64,7 +62,7 @@ public class CoordinateTestP1{
 	public void testCoordinateConstructorCopy() {
 		Coordinate ccopy;
 		for (Coordinate caux: lcoor) {
-			ccopy= new Coordinate2D((Coordinate2D)caux);
+			ccopy= new Coordinate(caux);
 			assertEquals(caux.get(0),ccopy.get(0));
 			assertEquals(caux.get(1),ccopy.get(1));	
 		}
@@ -156,9 +154,9 @@ public class CoordinateTestP1{
 		assertFalse(c.equals(null));
 		assertFalse(c.equals(obj));
 		assertFalse(c.equals(lcoor.get(1)));
-		assertFalse(c.equals(new Coordinate2D(24, 0)));
+		assertFalse(c.equals(new Coordinate(24, 0)));
 		assertTrue (c.equals(c));
-		Coordinate d = new Coordinate2D(0,0);
+		Coordinate d = new Coordinate (0,0);
 		assertTrue((c.equals(d)));
 	}
 

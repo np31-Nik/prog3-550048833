@@ -12,7 +12,7 @@ public abstract class BattleshipException extends java.lang.Exception{
 	private Coordinate c;
 	
 	public BattleshipException (Coordinate c) {
-		c=this.c.copy();
+		super("Error");
 	}
 	public String getMessage() {
 		return "Battleship Exception";

@@ -246,4 +246,12 @@ public abstract class Board {
 			return "Board "+size+"; crafts: "+numCrafts+"; destroyed: "+destroyedCrafts;
 	}
 
+	public Map<Coordinate, Craft> getBoard() {
+		return board;
+	}
+
+	public void setBoard(Map<Coordinate, Craft> board) {
+		this.board = board;
+	}
+
 }

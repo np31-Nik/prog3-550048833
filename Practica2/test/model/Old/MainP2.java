@@ -1,4 +1,4 @@
-package mains;
+package model.Old;
 
 import model.Coordinate;
 import model.Orientation;
