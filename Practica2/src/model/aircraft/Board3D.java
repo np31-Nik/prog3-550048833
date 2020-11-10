@@ -70,10 +70,11 @@ public String show(boolean unveil) {
 						}else {
 							tablero+=WATER_SYMBOL;
 						}
-						if(j==size-1)
+						if(j==size-1 && z<size-1) {
 							tablero+="|";
+						}
 				}
-			}
+			}if(i<size-1)
 				tablero+="\n";
 
 		}
@@ -97,12 +98,12 @@ public String show(boolean unveil) {
 							tablero+=WATER_SYMBOL;
 						}
 					}
-					if(j==size-1)
+					if(j==size-1 && z<size-1)
 						tablero+="|";
 				}
 				
 	
-			}
+			}if(i<size-1)
 				tablero+="\n";
 		}
 	}

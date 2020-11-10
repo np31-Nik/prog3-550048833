@@ -220,7 +220,7 @@ public abstract class Craft {
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
 		int ori=0;
 		int x,y;
-		
+		if(position!=null) {
 		
 		switch(orientation) {
 		case NORTH:
@@ -248,13 +248,16 @@ public abstract class Craft {
 					y=i;
 				}
 				if(position instanceof Coordinate3D)
-					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y,0}));
+					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y,position.get(2)}));
 				else if(position instanceof Coordinate2D)
 					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y}));
 
 			}
 		}
 		return conjunto_coordinate;
+		}else {
+			throw new NullPointerException();
+		}
 	}
 
 	/**
