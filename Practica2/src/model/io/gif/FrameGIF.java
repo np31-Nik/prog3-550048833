@@ -17,14 +17,31 @@ import model.exceptions.io.BattleshipIOException;
  *
  */
 public class FrameGIF {
-
+/**
+ * pixelsquare
+ */
 	private static final int PIXELS_SQUARE = 50;
+	/**
+	 * width
+	 */
 	private int width;
+	/**
+	 * HEIGHT
+	 */
 	private int heigh;
-
+/**
+ * 2d
+ */
 	private Graphics2D ig2; // GIF4J
+	/**
+	 * bi
+	 */
 	private BufferedImage bi; // GIF4J
-
+/**
+ * framegif
+ * @param w WIDTH
+ * @param h HEIGHT
+ */
 	public FrameGIF(int w, int h) {
 		this.width = w;
 		this.heigh = h;
@@ -49,11 +66,18 @@ public class FrameGIF {
 		ig2.setPaint(colour);
 		ig2.fill(new Rectangle(x*PIXELS_SQUARE, y*PIXELS_SQUARE, PIXELS_SQUARE, PIXELS_SQUARE));
 	}
-
+/**
+ * getbuf
+ * @return bi
+ */
 	BufferedImage getBufferedImage() {
 		return bi;
 	}
-	
+	/**
+	 * savefile
+	 * @param file archivo
+	 * @throws BattleshipIOException io
+	 */
 	public void saveFile(File file) throws BattleshipIOException {
 	    try {
 			ImageIO.write(bi, "GIF", file);

@@ -6,17 +6,29 @@ import model.Game;
 import model.exceptions.io.BattleshipIOException;
 import model.io.gif.AnimatedGIF;
 import model.io.gif.FrameGIF;
-
+/**
+ * Clase VisualiserGIF
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class VisualiserGIF implements IVisualiser{
-
+/**
+ * game
+ */
 	private Game game;
-	
+	/**
+	 * Constructor
+	 * @param g el game
+	 */
 	public VisualiserGIF(Game g) {
 		if(g==null) {
 			throw new NullPointerException("Arg nulo");
 		}
 		game=g;
 	}
+	/**
+	 * Metodo show
+	 */
 	public void show() {
 		String b1=game.getBoard1().show(false);
 		String b2=game.getBoard2().show(false);
@@ -73,7 +85,9 @@ public class VisualiserGIF implements IVisualiser{
 		}
 	}
 		
-
+/**
+ * Metodo close
+ */
 	public void close() {
 		
 	}

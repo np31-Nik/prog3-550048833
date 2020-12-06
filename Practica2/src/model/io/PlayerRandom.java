@@ -16,19 +16,44 @@ import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
 import model.ship.Board2D;
-
+/**
+ * Clase PlayerRandom
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class PlayerRandom implements IPlayer{
+	/**
+	 * Random
+	 */
 	private Random random;
+	/**
+	 * Nombre
+	 */
 	private String name;
-	
+	/**
+	 * Constructor
+	 * @param name nombre
+	 * @param seed semilla
+	 */
 	public PlayerRandom(String name, long seed) {
 		this.name=name;
 		random=new Random(seed);
 	}
+	/**
+	 * metodo random int
+	 * @param min minimo
+	 * @param max maximo
+	 * @return el random
+	 */
 	private int genRandomInt(int min, int max) {
 	    return random.nextInt(max-min)+min;
 	}
-	
+	/**
+	 * Metodo genrandomcoordinate
+	 * @param b el board
+	 * @param offset el offset
+	 * @return la coordenada
+	 */
 	private Coordinate genRandomCoordinate(Board b, int offset) {
 		Coordinate c=null;
 		if(b instanceof Board2D) {
@@ -45,11 +70,18 @@ public class PlayerRandom implements IPlayer{
 		}
 		return c;
 	}
-	
+	/**
+	 * getName
+	 * @return el nombre
+	 */
 	public String getName() {
 		return name+" (PlayerRandom)";
 	}
-
+/**
+ * int ori
+ * @param r el numero aleatorio
+ * @return la orientacion
+ */
 	private Orientation intOri(int r) {
 		Orientation ori = null;
 		switch(r) {
@@ -70,7 +102,14 @@ public class PlayerRandom implements IPlayer{
 		return ori;
 		
 	}
-	
+	/**
+	 * Metodo putcrafts
+	 * @param b el board
+	 * @throws InvalidCoordinateException invalid
+	 * @throws OccupiedCoordinateException occupied
+	 * @throws NextToAnotherCraftException next
+	 * @throws BattleshipIOException io
+	 */
 	public void putCrafts(Board b) throws InvalidCoordinateException, OccupiedCoordinateException,
 			NextToAnotherCraftException, BattleshipIOException {
 		
@@ -100,7 +139,14 @@ public class PlayerRandom implements IPlayer{
 			b.addCraft(Transport, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
 		}
 	}
-
+/**
+ * Metodo nextshoot
+ * @param b el board
+ * @return la coordenada
+ * @throws BattleshipIOException io
+ * @throws InvalidCoordinateException invalid
+ * @throws CoordinateAlreadyHitException alreaydhit
+ */
 	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException {
 		Coordinate c=genRandomCoordinate(b,0);
 		b.hit(c);

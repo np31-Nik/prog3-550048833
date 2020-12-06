@@ -1,7 +1,14 @@
 package model.exceptions;
 
 import model.Coordinate;
+/**
+ * Supresswarnings
+ */
 @SuppressWarnings("serial")  
+/**
+ * Excepcion coordinate
+ * @author Nikita Polyanskiy P550048833
+ */
 public abstract class CoordinateException extends java.lang.Exception{
 	/**
 	 * Coordenada

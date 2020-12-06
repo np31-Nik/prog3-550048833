@@ -8,17 +8,47 @@ import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
 import model.io.IPlayer;
 import model.io.IVisualiser;
-
+/**
+ * Clase Game
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class Game {
-
+/**
+ * gameStarted v o f
+ */
 	private boolean gameStarted;
+	/**
+	 * Siguiente a disparar
+	 */
 	private int nextToShoot;
+	/**
+	 * contador
+	 */
 	private int shootCounter;
+	/**
+	 * j1
+	 */
 	private IPlayer player1;
+	/**
+	 * j2
+	 */
 	private IPlayer player2;
+	/**
+	 * b1
+	 */
 	private Board board1;
+	/**
+	 * b2
+	 */
 	private Board board2;
-	
+	/**
+	 * Constructor
+	 * @param b1 board1
+	 * @param b2 board 2
+	 * @param p1 player 1
+	 * @param p2 player 2
+	 */
 	public Game(Board b1, Board b2, IPlayer p1, IPlayer p2) {
 		if(p1==null || p2==null || b1==null || b2==null) {
 			throw new NullPointerException("Parametros nulos");
@@ -31,16 +61,25 @@ public class Game {
 		gameStarted=false;
 		
 	}
-	
+	/**
+	 * getplayer1
+	 * @return p1
+	 */
 	public IPlayer getPlayer1() {
 		return player1;
 		
 	}
-	
+	/**
+	 * getplayer2
+	 * @return p2
+	 */
 	public IPlayer getPlayer2() {
 		return player2;
 	}
-	
+	/**
+	 * get last shoot
+	 * @return ultimo en disparar
+	 */
 	public IPlayer getPlayerLastShoot() {
 		if(nextToShoot==1) {
 			return player2;
@@ -51,15 +90,23 @@ public class Game {
 		}
 		
 	}
-	
+	/**
+	 * getb1
+	 * @return board 1
+	 */
 	public Board getBoard1() {
 		return board1;
 	}
-	
+	/**
+	 * getb2
+	 * @return board 2
+	 */
 	public Board getBoard2() {
 		return board2;
 	}
-	
+	/**
+	 * start
+	 */
 	public void start() {
 		
 		try {
@@ -77,7 +124,10 @@ public class Game {
 		
 		
 	}
-	
+	/**
+	 * game ended
+	 * @return v o f
+	 */
 	public boolean gameEnded() {
 		if(gameStarted) {
 			if(board1.areAllCraftsDestroyed() || board2.areAllCraftsDestroyed()) {
@@ -88,7 +138,10 @@ public class Game {
 		return false;
 		
 	}
-	
+	/**
+	 * play next
+	 * @return v o f
+	 */
 	public boolean playNext() {
 		
 			
@@ -119,7 +172,10 @@ public class Game {
 		}
 		return false;
 	}
-	
+	/**
+	 * playgame
+	 * @param visualiser visual
+	 */
 	public void playGame(IVisualiser visualiser) {
 		boolean next=true;
 		start();
@@ -131,7 +187,10 @@ public class Game {
 		}while(!gameEnded() && next);
 		visualiser.close();
 	}
-	
+	/**
+	 * metodo tostring
+	 * @return el string
+	 */
 	public String toString() {
 		String string="";
 		if(!gameStarted) {

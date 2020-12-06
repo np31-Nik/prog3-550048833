@@ -19,10 +19,25 @@ import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
 import model.ship.Board2D;
-
+/**
+ * Clase player file
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 public class PlayerFile implements IPlayer{
+	/**
+	 * BufferedReader br
+	 */
 	private BufferedReader br;
+	/**
+	 * String name
+	 */
 	private String name;
+	/**
+	 * Constructor playerfile
+	 * @param name nombre
+	 * @param reader br
+	 */
 	public PlayerFile(String name, BufferedReader reader) {
 		this.name=name;
 		if(reader!=null) {
@@ -31,10 +46,23 @@ public class PlayerFile implements IPlayer{
 		throw new NullPointerException();	
 		}
 	}
-	
+	/**
+	 * String getname
+	 * @return name
+	 */
 	public String getName() {
 		return name+" (PlayerFile)";
 	}
+	
+	
+	/**
+	 * Metodo putcrafts
+	 * @param b el board
+	 * @throws InvalidCoordinateException invalid
+	 * @throws OccupiedCoordinateException occupied
+	 * @throws NextToAnotherCraftException next
+	 * @throws BattleshipIOException io
+	 */
 	public void putCrafts(Board b) throws InvalidCoordinateException, OccupiedCoordinateException, NextToAnotherCraftException, BattleshipIOException {
 		Set<String> types=new HashSet<String>();
 		types.add("Cruiser");
@@ -56,17 +84,15 @@ public class PlayerFile implements IPlayer{
 		boolean leer=true;
 		
 		String line;
-		String[] tokens;
 		Craft craft;
 		
 		int x,y,z;
 		try {
 			if(b!=null) {
-			while(((line=br.readLine())!=null) && leer) {
-				tokens= new String[0];
-				
-				tokens=line.split("\\s+");
-				
+				line=br.readLine();
+			while((line!=null) && leer) {
+				String[] tokens=line.split("\\s+");
+
 				if(tokens[0]=="put") {
 					if(tokens.length!=5 && tokens.length!=6) {
 						throw new BattleshipIOException("Numero de parametros incorrecto");
@@ -119,13 +145,16 @@ public class PlayerFile implements IPlayer{
 					}
 				}else if(tokens[0]=="endput" || tokens[0]=="exit") {
 					leer=false;
-				}else {
+				}else if(tokens[0]==null){
+					
+				}else{
 					throw new BattleshipIOException("comando incorrecto");
 				}
 				
 				
 				
-				
+				line=br.readLine();
+
 			}
 			}else {
 				throw new NullPointerException();
@@ -137,7 +166,14 @@ public class PlayerFile implements IPlayer{
 		}
 	}
 	
-	
+	/**
+	 * Metodo nextShoot
+	 * @param b el board
+	 * @return coordenada
+	 * @throws BattleshipIOException io
+	 * @throws InvalidCoordinateException invalid
+	 * @throws CoordinateAlreadyHitException hit
+	 */
 	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException {
 		String line;
 		String[] tokens;

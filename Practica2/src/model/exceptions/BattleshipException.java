@@ -1,5 +1,8 @@
 package model.exceptions;
-
+/**
+ * Excepcion battleship
+ * @author Nikita Polyanskiy P550048833
+ */
 import model.Coordinate;
 
 /**

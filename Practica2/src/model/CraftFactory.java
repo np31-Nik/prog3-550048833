@@ -7,10 +7,19 @@ import model.ship.Destroyer;
 import model.aircraft.Bomber;
 import model.aircraft.Fighter;
 import model.aircraft.Transport;
-
+/**
+ * Clase CraftFactory
+ * @author Nikita Polyanskiy P550048833
+ *
+ */
 
 public class CraftFactory{
-
+/**
+ * Metodo createCraft
+ * @param type tipo
+ * @param orientation orientacion
+ * @return el craft
+ */
 	public static Craft createCraft(String type, Orientation orientation) {
 		Craft craft;
 		
