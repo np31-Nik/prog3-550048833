@@ -15,7 +15,6 @@ public class InvalidCoordinateException extends BattleshipException{
  */
 	
 	public InvalidCoordinateException (Coordinate c) {
-		super(c);
 
 	}
 	/**

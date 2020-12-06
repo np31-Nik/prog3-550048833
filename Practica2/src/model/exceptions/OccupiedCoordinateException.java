@@ -15,7 +15,6 @@ public class OccupiedCoordinateException extends BattleshipException{
 	 * @param c la coordenada
 	 */
 	public OccupiedCoordinateException (Coordinate c) {
-		super(c);
 
 	}
 	/**

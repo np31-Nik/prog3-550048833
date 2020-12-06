@@ -15,7 +15,6 @@ public class NextToAnotherCraftException extends BattleshipException{
  */
 	
 	public NextToAnotherCraftException (Coordinate c) {
-		super(c);
 
 	}
 	/**

@@ -138,7 +138,7 @@ public class PlayerFile implements IPlayer{
 	}
 	
 	
-	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, BattleshipException {
+	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException {
 		String line;
 		String[] tokens;
 		boolean leer=true;

@@ -10,6 +10,7 @@ import model.CraftFactory;
 import model.Orientation;
 import model.aircraft.Board3D;
 import model.exceptions.BattleshipException;
+import model.exceptions.CoordinateAlreadyHitException;
 import model.exceptions.InvalidCoordinateException;
 import model.exceptions.NextToAnotherCraftException;
 import model.exceptions.OccupiedCoordinateException;
@@ -100,7 +101,7 @@ public class PlayerRandom implements IPlayer{
 		}
 	}
 
-	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, BattleshipException {
+	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException {
 		Coordinate c=genRandomCoordinate(b,0);
 		b.hit(c);
 		return c;

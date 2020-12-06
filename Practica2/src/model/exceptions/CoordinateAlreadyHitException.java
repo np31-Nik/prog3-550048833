@@ -15,7 +15,6 @@ public class CoordinateAlreadyHitException extends BattleshipException{
  */
 	
 	public CoordinateAlreadyHitException (Coordinate c) {
-		super(c);
 		
 	}
 	/**
