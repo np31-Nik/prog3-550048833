@@ -9,24 +9,5 @@ import model.Coordinate;
  */
 @SuppressWarnings("serial")  
 public abstract class BattleshipException extends java.lang.Exception{
-	/**
-	 * Coordenada
-	 */
-	private Coordinate c;
-	/**
-	 * Constructor
-	 * @param c la coordenada
-	 */
-	public BattleshipException (Coordinate c) {
-		super("Error");
-	}
-	/**
-	 * Metodo get message
-	 * @return mensaje
-	 */
-	public String getMessage() {
-		return "Battleship Exception";
-	}
-	
 	
 }
