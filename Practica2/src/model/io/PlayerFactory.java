@@ -1,8 +1,12 @@
 package model.io;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.Reader;
 import java.io.StringReader;
+
+import model.exceptions.io.BattleshipIOException;
 /**
  * Clase PlayerFactory
  * @author Nikita Polyanskiy P550048833
@@ -30,18 +34,26 @@ public class PlayerFactory {
 	 * @param name el nombre
 	 * @param s el string
 	 * @return el player
+	 * @throws BattleshipIOException filenotfound
 	 */
-	public static IPlayer createPlayer(String name, String s) {
-		if((s.indexOf('.'))!=-1 || (s.indexOf('\\'))!=-1 || (s.indexOf('/'))!=-1) {
-			Reader inputString = new StringReader(s);
-			BufferedReader reader = new BufferedReader(inputString);
-			return new PlayerFile(name,reader);
-			
-			
-		}else if(isLong(s)) {
-			return new PlayerRandom(name,Long.parseLong(s));
-		}else {
-			return null;
+	public static IPlayer createPlayer(String name, String s) throws BattleshipIOException {
+		try {
+			if((s.indexOf('.'))!=-1 || (s.indexOf('\\'))!=-1 || (s.indexOf('/'))!=-1) {
+				FileReader inputString;
+				
+				inputString = new FileReader(s);
+				
+				BufferedReader reader = new BufferedReader(inputString);
+				return new PlayerFile(name,reader);
+				
+				
+			}else if(isLong(s)) {
+				return new PlayerRandom(name,Long.parseLong(s));
+			}else {
+				return null;
+			}
+		} catch (FileNotFoundException e) {
+			throw new BattleshipIOException(e.getMessage());
 		}
 		
 	}

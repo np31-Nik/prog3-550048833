@@ -93,7 +93,7 @@ public class PlayerFile implements IPlayer{
 			while((line!=null) && leer) {
 				String[] tokens=line.split("\\s+");
 
-				if(tokens[0]=="put") {
+				if(tokens[0].equals("put")) {
 					if(tokens.length!=5 && tokens.length!=6) {
 						throw new BattleshipIOException("Numero de parametros incorrecto");
 					}else {
@@ -124,6 +124,7 @@ public class PlayerFile implements IPlayer{
 								Coordinate c = CoordinateFactory.createCoordinate(coords);
 								
 								craft=CraftFactory.createCraft(tokens[1],o);
+								System.out.println(c);
 								b.addCraft(craft, c);
 								
 							}else if(tokens.length==6) {
@@ -143,9 +144,10 @@ public class PlayerFile implements IPlayer{
 							}
 						}
 					}
-				}else if(tokens[0]=="endput" || tokens[0]=="exit") {
+				}else if(tokens[0].equals("endput") || tokens[0].equals("exit")) {
 					leer=false;
-				}else if(tokens[0]==null){
+					break;
+				}else if(tokens[0].equals(null)){
 					
 				}else{
 					throw new BattleshipIOException("comando incorrecto");
@@ -181,13 +183,13 @@ public class PlayerFile implements IPlayer{
 		try {
 			while(((line=br.readLine())!=null) && leer) {
 				tokens= new String[0];
-				
 				tokens=line.split("\\s+");
-				if(tokens[0]=="shoot") {
-					
+				if(tokens[0].equals("shoot")) {
+
 					if(tokens.length!=4 && tokens.length!=3) {
 						throw new BattleshipIOException("Numero de parametros incorrecto");
 					}else if(tokens.length==3) {
+
 						int x=Integer.parseInt(tokens[1]);
 						int y=Integer.parseInt(tokens[2]);
 						
@@ -195,6 +197,8 @@ public class PlayerFile implements IPlayer{
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
 						b.hit(c);
+						return c;
+
 					}else if(tokens.length==4) {
 						int x=Integer.parseInt(tokens[1]);
 						int y=Integer.parseInt(tokens[2]);
@@ -202,6 +206,7 @@ public class PlayerFile implements IPlayer{
 						int[] coords= {x,y,z};
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
+						System.out.println(c);
 						b.hit(c);
 						
 						return c;
@@ -209,8 +214,9 @@ public class PlayerFile implements IPlayer{
 					}
 				
 				
-				}else if(tokens[0]=="exit") {
+				}else if(tokens[0].equals("exit")) {
 					leer=false;	
+					break;
 				}else {
 					throw new BattleshipIOException("Comando incorrecto");	
 				}

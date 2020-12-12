@@ -16,6 +16,9 @@ public class VisualiserConsole implements IVisualiser {
 	 * @param g el game
 	 */
 	public VisualiserConsole(Game g) {
+		if(g==null) {
+		throw new NullPointerException();	
+		}
 		game=g;
 	}
 	/**

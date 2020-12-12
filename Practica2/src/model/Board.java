@@ -166,6 +166,9 @@ public abstract class Board {
 		if(!checkCoordinate(c)) {
 			throw new InvalidCoordinateException(c);
 		}
+		/*if(c==null) {
+			throw new InvalidCoordinateException(c);
+		}*/
 		if(getCraft(c)==null) {
 			seen.add(c.copy());
 			return CellStatus.WATER;

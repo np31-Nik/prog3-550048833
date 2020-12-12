@@ -20,6 +20,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import model.exceptions.BattleshipException;
+import model.exceptions.InvalidCoordinateException;
+import model.exceptions.NextToAnotherCraftException;
+import model.exceptions.OccupiedCoordinateException;
 import model.ship.Board2D;
 import model.ship.Coordinate2D;
 import model.ship.Cruiser;
@@ -582,6 +585,7 @@ public class BoardTestP2 {
 	
 	
 	/* FUNCIONES AUXILIARES */
+	@SuppressWarnings("unchecked")
 	Object getBoardField(Board board, String atribute) throws Exception {
 
 		// Sacamos el atributo privado (seen) de la clase (Board) 

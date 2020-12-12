@@ -218,42 +218,8 @@ public abstract class Craft {
 	 */
 	public Set<Coordinate> getAbsolutePositions() {
 		Set<Coordinate> conjunto_coordinate = new HashSet<Coordinate>();
-		int ori=0;
-		int x,y;
 		if(position!=null) {
-		
-		switch(orientation) {
-		case NORTH:
-			ori=0;
-			break;
-		case EAST:
-			ori=1;
-			break;
-		case SOUTH:
-			ori=2;
-			break;
-		case WEST:
-			ori=3;
-			break;
-		default:
-			break;
-		}
-		
-		for(int i=0;i<BOUNDING_SQUARE_SIZE*BOUNDING_SQUARE_SIZE;i++) {
-			if(shape[ori][i]==CRAFT_VALUE) {
-				x=i/BOUNDING_SQUARE_SIZE;
-				if(i>BOUNDING_SQUARE_SIZE) {
-					y=i-BOUNDING_SQUARE_SIZE;
-				}else {
-					y=i;
-				}
-				if(position instanceof Coordinate3D)
-					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y,position.get(2)}));
-				else if(position instanceof Coordinate2D)
-					conjunto_coordinate.add(CoordinateFactory.createCoordinate(new int[] {x,y}));
-
-			}
-		}
+		conjunto_coordinate=getAbsolutePositions(position);
 		return conjunto_coordinate;
 		}else {
 			throw new NullPointerException();

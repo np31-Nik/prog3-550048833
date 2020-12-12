@@ -81,6 +81,9 @@ public class Game {
 	 * @return ultimo en disparar
 	 */
 	public IPlayer getPlayerLastShoot() {
+		if(shootCounter==0) {
+		return null;	
+		}
 		if(nextToShoot==1) {
 			return player2;
 		}else if(nextToShoot==2) {
@@ -143,7 +146,6 @@ public class Game {
 	 * @return v o f
 	 */
 	public boolean playNext() {
-		
 			
 		try {
 			if(nextToShoot==1) {
@@ -153,6 +155,7 @@ public class Game {
 				return true;
 			
 			}else if(nextToShoot==2) {
+				
 				player2.nextShoot(board1);
 				nextToShoot=1;
 				shootCounter++;
@@ -177,6 +180,7 @@ public class Game {
 	 * @param visualiser visual
 	 */
 	public void playGame(IVisualiser visualiser) {
+
 		boolean next=true;
 		start();
 		visualiser.show();
@@ -204,11 +208,11 @@ public class Game {
 		string+="==================================\n";
 		string+=player1.getName()+"\n";
 		string+="==================================\n";
-		string+=board1.show(true)+"\n";
+		string+=board1.show(false)+"\n";
 		string+="==================================\n";
 		string+=player2.getName()+"\n";
 		string+="==================================\n";
-		string+=board2.show(true)+"\n";
+		string+=board2.show(false)+"\n";
 		string+="==================================\n";
 		string+="Number of shots: "+shootCounter;
 		
@@ -222,6 +226,46 @@ public class Game {
 		}
 		
 		return string;
+		
+	}
+	
+	/**
+	 * metodo getscore
+	 * @return el score
+	 */
+	public String getScoreInfo() {
+		
+	}
+	
+	/**
+	 * Metodo gethitscorep1
+	 * @return el score del p1
+	 */
+	public HitScore getHitScorePlayer1() {
+		
+	}
+	
+	/**
+	 * hitscore player 2
+	 * @return hitscore player 2
+	 */
+	public HitScore getHitScorePlayer2() {
+		
+	}
+	
+	/**
+	 * Metodo craftscore p1
+	 * @return craftscore p1
+	 */
+	public CraftScore getCraftScorePlayer1() {
+		
+	}
+	
+	/**
+	 * Metodo craftscore p2
+	 * @return craftscore p2
+	 */
+	public CraftScore getCraftScorePlayer2() {
 		
 	}
 }

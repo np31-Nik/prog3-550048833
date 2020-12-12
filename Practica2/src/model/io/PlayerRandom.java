@@ -112,31 +112,102 @@ public class PlayerRandom implements IPlayer{
 	 */
 	public void putCrafts(Board b) throws InvalidCoordinateException, OccupiedCoordinateException,
 			NextToAnotherCraftException, BattleshipIOException {
-		
-		Craft Battleship=CraftFactory.createCraft("Battleship", intOri(genRandomInt(0,4)));
-		Craft Carrier=CraftFactory.createCraft("Carrier",  intOri(genRandomInt(0,4)));
-		Craft Cruiser=CraftFactory.createCraft("Cruiser",  intOri(genRandomInt(0,4)));
-		Craft Destroyer=CraftFactory.createCraft("Destroyer",  intOri(genRandomInt(0,4)));
+		int r_coord=0;
+		boolean put;
 		
 		Craft Bomber = null;
 		Craft Fighter = null;
 		Craft Transport = null;
 		
+		Craft Battleship=CraftFactory.createCraft("Battleship", intOri(genRandomInt(0,4)));
+
+		do {
+			try {
+				r_coord++;
+				b.addCraft(Battleship, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+				put=true;
+			}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+				put=false;
+			}
+		}while(!put && r_coord<100);
+		
+		Craft Carrier=CraftFactory.createCraft("Carrier",  intOri(genRandomInt(0,4)));
+
+		
+		do {
+			try {
+				r_coord++;
+				b.addCraft(Carrier, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+				put=true;
+			}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+				put=false;
+			}
+		}while(!put && r_coord<100);
+		
+		Craft Cruiser=CraftFactory.createCraft("Cruiser",  intOri(genRandomInt(0,4)));
+
+	
+		do {
+			try {
+				r_coord++;
+				b.addCraft(Cruiser, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+				put=true;
+			}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+				put=false;
+			}
+		}while(!put && r_coord<100);
+		
+		Craft Destroyer=CraftFactory.createCraft("Destroyer",  intOri(genRandomInt(0,4)));
+
+
+			do {
+				try {
+					r_coord++;
+					b.addCraft(Destroyer, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+					put=true;
+				}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+					put=false;
+				}
+			}while(!put && r_coord<100);
+	
+		
 		if(b instanceof Board3D) {
-			Bomber=CraftFactory.createCraft("Bomber", intOri(genRandomInt(0,4)));
+				Bomber=CraftFactory.createCraft("Bomber", intOri(genRandomInt(0,4)));
+				
+			do {
+				try {
+					r_coord++;
+					b.addCraft(Bomber, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+					put=true;
+				}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+					put=false;
+				}
+			}while(!put && r_coord<100);
+			
 			Fighter=CraftFactory.createCraft("Fighter", intOri(genRandomInt(0,4)));
-			Transport=CraftFactory.createCraft("Transport", intOri(genRandomInt(0,4)));
-		}
+
+				do {
+					try {
+						r_coord++;
+						b.addCraft(Fighter, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+						put=true;
+					}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+						put=false;
+					}
+				}while(!put && r_coord<100);
+				
+				Transport=CraftFactory.createCraft("Transport", intOri(genRandomInt(0,4)));
+
+					do {
+						try {
+							r_coord++;
+							b.addCraft(Transport, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
+							put=true;
+						}catch(InvalidCoordinateException | OccupiedCoordinateException | NextToAnotherCraftException e) {
+							put=false;
+						}
+					}while(!put && r_coord<100);
 		
-		b.addCraft(Battleship, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
-		b.addCraft(Carrier, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
-		b.addCraft(Cruiser, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
-		b.addCraft(Destroyer, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
-		
-		if(b instanceof Board3D) {
-			b.addCraft(Bomber, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
-			b.addCraft(Fighter, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
-			b.addCraft(Transport, genRandomCoordinate(b,Craft.getBOUNDING_SQUARE_SIZE()));
 		}
 	}
 /**
