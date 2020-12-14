@@ -210,8 +210,11 @@ public class GameTest {
 		game = new Game(board1, board2, player1, player2);
 		IVisualiser iv = VisualiserFactory.createVisualiser("Console", game);
 		PrintStream ps = standardIO2File(outFile);
+
+		
 		if (ps!=null) {
 			game.playGame(iv);
+
 			assertTrue(game.gameEnded());
 			System.setOut(System.out); //Reestablecemos la salida standard
 			ps.close();
@@ -234,8 +237,6 @@ public class GameTest {
 		final String outFile = DIRFILES+"testPlayGame2.alu";
 		player1= PlayerFactory.createPlayer("Lorena", "1");
 		player2= PlayerFactory.createPlayer("Paul", "test/files/testPlayGame2.in");
-		System.out.println(player1.getName());
-		System.out.println(player2.getName());
 		board1 = new Board3D(7);
 		board2 = new Board3D(7);
 		game = new Game(board1, board2, player1, player2);

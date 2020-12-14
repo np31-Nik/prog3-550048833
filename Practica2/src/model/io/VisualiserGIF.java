@@ -37,10 +37,15 @@ public class VisualiserGIF implements IVisualiser{
 		String b2=game.getBoard2().show(false);
 		char[] columns;
 		String[] rows;	
-		
-		rows=b1.split("\\s+");
-		FrameGIF frame1= new FrameGIF(rows[0].length(),game.getBoard1().getSize()*2+1);
+System.out.println(b1);
+System.out.println("---");
+
+System.out.println(b2);
+
+		rows=b1.split("\\r?\\n");
 		try {
+			FrameGIF frame1= new FrameGIF(rows[0].length(),game.getBoard1().getSize()*2+1);
+
 			for(int j=0;j<rows.length;j++) {
 				columns=rows[j].toCharArray();
 				for(int i=0;i<rows[j].length();i++) {
@@ -52,6 +57,8 @@ public class VisualiserGIF implements IVisualiser{
 						frame1.printSquare(i, j, Color.RED);
 					}else if(rows[j].charAt(i)==game.getBoard1().Board_SEPARATOR) {
 						frame1.printSquare(i, j, Color.ORANGE);
+					}else {
+						frame1.printSquare(i, j, Color.RED);
 					}
 				}
 			}
@@ -61,7 +68,7 @@ public class VisualiserGIF implements IVisualiser{
 			
 			rows= new String[0];
 			columns=new char[0];
-			rows=b2.split("\\s+");
+			rows=b2.split("\\r?\\n");
 			for(int j=0;j<rows.length;j++) {
 				columns=rows[j].toCharArray();
 				for(int i=0;i<rows[j].length();i++) {
@@ -72,6 +79,8 @@ public class VisualiserGIF implements IVisualiser{
 					}else if(rows[j].charAt(i)==game.getBoard2().WATER_SYMBOL) {
 						frame1.printSquare(i,rows.length+1+j,Color.BLUE);
 					}else if(rows[j].charAt(i)==game.getBoard2().HIT_SYMBOL) {
+						frame1.printSquare(i, rows.length+1+j, Color.RED);
+					}else {
 						frame1.printSquare(i, rows.length+1+j, Color.RED);
 					}
 				}

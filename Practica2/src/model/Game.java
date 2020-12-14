@@ -111,7 +111,7 @@ public class Game {
 	 * start
 	 */
 	public void start() {
-		
+
 		try {
 			player1.putCrafts(board1);
 			player2.putCrafts(board2);
@@ -168,9 +168,16 @@ public class Game {
 			if(nextToShoot==1) {
 				System.out.print(player1.getName());
 				System.out.println(" "+e.getMessage());
+				nextToShoot=2;
+				shootCounter++;
+				return true;
 			}else {
 				System.out.print(player2.getName());
 				System.out.println(" "+e.getMessage());
+				nextToShoot=1;
+				shootCounter++;
+				return true;
+				
 			}
 		}
 		return false;
@@ -184,6 +191,7 @@ public class Game {
 		boolean next=true;
 		start();
 		visualiser.show();
+
 		do {
 			next=playNext();
 			if(next)
@@ -234,6 +242,7 @@ public class Game {
 	 * @return el score
 	 */
 	public String getScoreInfo() {
+		return null;
 		
 	}
 	
@@ -241,31 +250,31 @@ public class Game {
 	 * Metodo gethitscorep1
 	 * @return el score del p1
 	 */
-	public HitScore getHitScorePlayer1() {
+	//public HitScore getHitScorePlayer1() {
 		
-	}
+	//}
 	
 	/**
 	 * hitscore player 2
 	 * @return hitscore player 2
 	 */
-	public HitScore getHitScorePlayer2() {
+	//public HitScore getHitScorePlayer2() {
 		
-	}
+	//}
 	
 	/**
 	 * Metodo craftscore p1
 	 * @return craftscore p1
 	 */
-	public CraftScore getCraftScorePlayer1() {
+	//public CraftScore getCraftScorePlayer1() {
 		
-	}
+	//}
 	
 	/**
 	 * Metodo craftscore p2
 	 * @return craftscore p2
 	 */
-	public CraftScore getCraftScorePlayer2() {
+	//public CraftScore getCraftScorePlayer2() {
 		
-	}
+	//}
 }

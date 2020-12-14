@@ -9,7 +9,7 @@ import model.Coordinate;
  * Excepcion coordinate
  * @author Nikita Polyanskiy P550048833
  */
-public abstract class CoordinateException extends java.lang.Exception{
+public abstract class CoordinateException extends BattleshipException{
 	/**
 	 * Coordenada
 	 */
@@ -18,8 +18,11 @@ public abstract class CoordinateException extends java.lang.Exception{
 	 * Constructor
 	 * @param c la coordenada
 	 */
+	public CoordinateException() {
+		super();
+	}
 	public CoordinateException (Coordinate c) {
-		super("Error");
+		super();
 	}
 	/**
 	 * Metodo get message

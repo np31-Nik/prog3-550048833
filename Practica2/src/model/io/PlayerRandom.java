@@ -130,7 +130,7 @@ public class PlayerRandom implements IPlayer{
 				put=false;
 			}
 		}while(!put && r_coord<100);
-		
+		r_coord=0;
 		Craft Carrier=CraftFactory.createCraft("Carrier",  intOri(genRandomInt(0,4)));
 
 		
@@ -143,7 +143,7 @@ public class PlayerRandom implements IPlayer{
 				put=false;
 			}
 		}while(!put && r_coord<100);
-		
+		r_coord=0;
 		Craft Cruiser=CraftFactory.createCraft("Cruiser",  intOri(genRandomInt(0,4)));
 
 	
@@ -156,7 +156,7 @@ public class PlayerRandom implements IPlayer{
 				put=false;
 			}
 		}while(!put && r_coord<100);
-		
+		r_coord=0;
 		Craft Destroyer=CraftFactory.createCraft("Destroyer",  intOri(genRandomInt(0,4)));
 
 
@@ -169,7 +169,7 @@ public class PlayerRandom implements IPlayer{
 					put=false;
 				}
 			}while(!put && r_coord<100);
-	
+			r_coord=0;
 		
 		if(b instanceof Board3D) {
 				Bomber=CraftFactory.createCraft("Bomber", intOri(genRandomInt(0,4)));
@@ -183,7 +183,7 @@ public class PlayerRandom implements IPlayer{
 					put=false;
 				}
 			}while(!put && r_coord<100);
-			
+			r_coord=0;
 			Fighter=CraftFactory.createCraft("Fighter", intOri(genRandomInt(0,4)));
 
 				do {
@@ -195,7 +195,7 @@ public class PlayerRandom implements IPlayer{
 						put=false;
 					}
 				}while(!put && r_coord<100);
-				
+				r_coord=0;
 				Transport=CraftFactory.createCraft("Transport", intOri(genRandomInt(0,4)));
 
 					do {
@@ -207,7 +207,7 @@ public class PlayerRandom implements IPlayer{
 							put=false;
 						}
 					}while(!put && r_coord<100);
-		
+					r_coord=0;
 		}
 	}
 /**
