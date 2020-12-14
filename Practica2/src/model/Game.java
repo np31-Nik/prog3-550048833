@@ -146,20 +146,25 @@ public class Game {
 	 * @return v o f
 	 */
 	public boolean playNext() {
-			
+		Coordinate shoot;
 		try {
 			if(nextToShoot==1) {
-				player1.nextShoot(board2);
+				shoot=player1.nextShoot(board2);
+				if(shoot!=null) {
 				nextToShoot=2;
 				shootCounter++;
 				return true;
-			
+				}else {
+					return false;
+				}		
 			}else if(nextToShoot==2) {
 				
-				player2.nextShoot(board1);
+				shoot=player2.nextShoot(board1);
+				if(shoot!=null) {
 				nextToShoot=1;
 				shootCounter++;
 				return true;
+				}
 			}
 		} catch (BattleshipIOException | InvalidCoordinateException e) {
 			throw new RuntimeException(e);

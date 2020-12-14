@@ -186,20 +186,10 @@ public class VisualiserGIFTest {
 	public void testShow3DWithShipsAndHits() throws IOException, InvalidCoordinateException, NextToAnotherCraftException, OccupiedCoordinateException, CoordinateAlreadyHitException {
 		board1 = new Board3D(5);
 		board2 = new Board3D(5);
-		
-
-
 		game = new Game(board1, board2, player1, player2);
 		game.start();
 		HitsInBoard1_3D();
 		HitsInBoard2_3D();
-		System.out.println("***");
-
-		System.out.println(board1.show(false));
-		System.out.println("***");
-
-		System.out.println(board2.show(false));
-		System.out.println("***");
 		VisualiserGIF vg = new VisualiserGIF(game);
 		vg.show();
 		vg.close();

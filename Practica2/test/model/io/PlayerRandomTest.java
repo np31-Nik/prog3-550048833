@@ -101,11 +101,7 @@ public class PlayerRandomTest {
 	public void testPutCrafts3D() throws BattleshipIOException, InvalidCoordinateException, NextToAnotherCraftException, OccupiedCoordinateException {
 		IPlayer ip = new PlayerRandom("Laura", 55);
 		ip.putCrafts(board3d);
-		System.out.println(sboard3d);
-		System.out.println("-------------------");
-		System.out.println(board3d.show(true));
 		compareLines(sboard3d,board3d.show(true));
-		
 	}
 	
 	/* Se pasa null como parámetro a putCrafts. Se comprueba que se lanza la excepción NullPointerException */

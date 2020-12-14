@@ -108,19 +108,21 @@ public abstract class Board {
 		boolean add=true;
 		
 		for(Coordinate c_barco : craft.getAbsolutePositions(position)) {
-			if(!checkCoordinate(c_barco) && add) {
-				add=false;
+			if(!checkCoordinate(c_barco)) {
 				throw new InvalidCoordinateException(c_barco);
 			}
-			if(board.containsKey(c_barco) && add) {
-				add=false;
+			
+			
+		}
+		for(Coordinate c_barco : craft.getAbsolutePositions(position)) {
+			if(board.keySet().contains(c_barco)) {
 				throw new OccupiedCoordinateException(c_barco);
 			}
-			for(Coordinate c_neighbor : getNeighborhood(craft,position)) {
-				if(board.keySet().contains(c_neighbor) && add){
-					add=false;
-					throw new NextToAnotherCraftException(c_neighbor);
-				}
+		}
+		
+		for(Coordinate c_neighbor : getNeighborhood(craft,position)) {
+			if(board.keySet().contains(c_neighbor)){
+				throw new NextToAnotherCraftException(c_neighbor);
 			}
 		}
 		if(add){

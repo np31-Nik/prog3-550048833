@@ -34,6 +34,10 @@ public class PlayerFile implements IPlayer{
 	 */
 	private String name;
 	/**
+	 * moreshots
+	 */
+	private boolean moreshots=true;
+	/**
 	 * Constructor playerfile
 	 * @param name nombre
 	 * @param reader br
@@ -124,7 +128,6 @@ public class PlayerFile implements IPlayer{
 								Coordinate c = CoordinateFactory.createCoordinate(coords);
 								
 								craft=CraftFactory.createCraft(tokens[1],o);
-								System.out.println(c);
 								b.addCraft(craft, c);
 								
 							}else if(tokens.length==6) {
@@ -180,8 +183,9 @@ public class PlayerFile implements IPlayer{
 		String line;
 		String[] tokens;
 		boolean leer=true;
+
 		try {
-			while(((line=br.readLine())!=null) && leer) {
+			while(((line=br.readLine())!=null) && leer && moreshots) {
 				tokens= new String[0];
 				tokens=line.split("\\s+");
 				if(tokens[0].equals("shoot")) {
@@ -206,7 +210,6 @@ public class PlayerFile implements IPlayer{
 						int[] coords= {x,y,z};
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
-						System.out.println(c);
 						b.hit(c);
 						
 						return c;
@@ -216,6 +219,7 @@ public class PlayerFile implements IPlayer{
 				
 				}else if(tokens[0].equals("exit")) {
 					leer=false;	
+					moreshots=false;
 					break;
 				}else {
 					throw new BattleshipIOException("Comando incorrecto");	

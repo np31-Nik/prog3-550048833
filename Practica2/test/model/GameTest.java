@@ -210,11 +210,8 @@ public class GameTest {
 		game = new Game(board1, board2, player1, player2);
 		IVisualiser iv = VisualiserFactory.createVisualiser("Console", game);
 		PrintStream ps = standardIO2File(outFile);
-
-		
 		if (ps!=null) {
 			game.playGame(iv);
-
 			assertTrue(game.gameEnded());
 			System.setOut(System.out); //Reestablecemos la salida standard
 			ps.close();

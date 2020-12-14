@@ -37,10 +37,6 @@ public class VisualiserGIF implements IVisualiser{
 		String b2=game.getBoard2().show(false);
 		char[] columns;
 		String[] rows;	
-System.out.println(b1);
-System.out.println("---");
-
-System.out.println(b2);
 
 		rows=b1.split("\\r?\\n");
 		try {
