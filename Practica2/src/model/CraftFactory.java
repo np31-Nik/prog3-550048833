@@ -4,6 +4,10 @@ import model.ship.Carrier;
 import model.ship.Battleship;
 import model.ship.Cruiser;
 import model.ship.Destroyer;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+
 import model.aircraft.Bomber;
 import model.aircraft.Fighter;
 import model.aircraft.Transport;
@@ -22,7 +26,20 @@ public class CraftFactory{
  */
 	public static Craft createCraft(String type, Orientation orientation) {
 		Craft craft;
+		String dir="model.ship."+type;
 		
+		try {
+			Class<?> c=Class.forName(dir);
+			Class<?>[] paramTypes=new Class[] {Orientation.class};
+			Constructor<?> m = c.getConstructor(paramTypes);
+
+			craft=(Craft) m.newInstance(orientation);
+			return craft;
+
+			} catch (Exception e) {
+				return null;
+			}
+		/*
 		switch(type) {
 		case "Carrier":
 			craft=new Carrier(orientation);
@@ -48,7 +65,6 @@ public class CraftFactory{
 		default:
 			craft=null;
 				break;
-		}
-		return craft;
+		}*/
 	}
 }
