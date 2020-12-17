@@ -16,7 +16,7 @@ public abstract class CoordinateException extends BattleshipException{
 	private Coordinate c;
 	/**
 	 * Constructor
-	 * @param c la coordenada
+	 * 
 	 */
 	public CoordinateException() {
 		super();
