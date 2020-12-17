@@ -16,7 +16,7 @@ public abstract class Score<T> implements Comparable<Score<T>>{
 	}
 	
 	public String toString() {
-		String s = player.toString()+": "+score;
+		String s = player.getName()+": "+score;
 		return s;
 	}
 	

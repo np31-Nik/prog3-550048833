@@ -37,4 +37,8 @@ public class Destroyer extends Ship {
 
 		super.setShape(shape);
 	}
+
+	public int getValue() {
+		return 3;
+	}
 }

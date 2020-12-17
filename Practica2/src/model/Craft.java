@@ -441,5 +441,8 @@ public abstract class Craft {
 		}
 	return ship;
 	}
+	
+	
+	public abstract int getValue();
 
 }

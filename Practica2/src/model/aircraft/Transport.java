@@ -37,4 +37,8 @@ public class Transport extends Aircraft {
 
 			super.setShape(shape);	
 	}
+	
+	public int getValue() {
+		return 18;
+	}
 }

@@ -37,4 +37,8 @@ public class Bomber extends Aircraft {
 
 			super.setShape(shape);	
 	}
+	
+	public int getValue() {
+		return 15;
+	}
 }

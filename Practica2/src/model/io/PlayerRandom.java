@@ -3,6 +3,7 @@ package model.io;
 import java.util.Random;
 
 import model.Board;
+import model.CellStatus;
 import model.Coordinate;
 import model.CoordinateFactory;
 import model.Craft;
@@ -22,6 +23,8 @@ import model.ship.Board2D;
  *
  */
 public class PlayerRandom implements IPlayer{
+	
+	private CellStatus lastShotStatus;
 	/**
 	 * Random
 	 */
@@ -119,7 +122,7 @@ public class PlayerRandom implements IPlayer{
 		Craft Fighter = null;
 		Craft Transport = null;
 		
-		Craft Battleship=CraftFactory.createCraft("Battleship", intOri(genRandomInt(0,4)));
+		Craft Battleship=CraftFactory.createCraft("ship.Battleship", intOri(genRandomInt(0,4)));
 
 		do {
 			try {
@@ -131,7 +134,7 @@ public class PlayerRandom implements IPlayer{
 			}
 		}while(!put && r_coord<100);
 		r_coord=0;
-		Craft Carrier=CraftFactory.createCraft("Carrier",  intOri(genRandomInt(0,4)));
+		Craft Carrier=CraftFactory.createCraft("ship.Carrier",  intOri(genRandomInt(0,4)));
 
 		
 		do {
@@ -144,7 +147,7 @@ public class PlayerRandom implements IPlayer{
 			}
 		}while(!put && r_coord<100);
 		r_coord=0;
-		Craft Cruiser=CraftFactory.createCraft("Cruiser",  intOri(genRandomInt(0,4)));
+		Craft Cruiser=CraftFactory.createCraft("ship.Cruiser",  intOri(genRandomInt(0,4)));
 
 	
 		do {
@@ -157,7 +160,7 @@ public class PlayerRandom implements IPlayer{
 			}
 		}while(!put && r_coord<100);
 		r_coord=0;
-		Craft Destroyer=CraftFactory.createCraft("Destroyer",  intOri(genRandomInt(0,4)));
+		Craft Destroyer=CraftFactory.createCraft("ship.Destroyer",  intOri(genRandomInt(0,4)));
 
 
 			do {
@@ -172,7 +175,7 @@ public class PlayerRandom implements IPlayer{
 			r_coord=0;
 		
 		if(b instanceof Board3D) {
-				Bomber=CraftFactory.createCraft("Bomber", intOri(genRandomInt(0,4)));
+				Bomber=CraftFactory.createCraft("aircraft.Bomber", intOri(genRandomInt(0,4)));
 				
 			do {
 				try {
@@ -184,7 +187,7 @@ public class PlayerRandom implements IPlayer{
 				}
 			}while(!put && r_coord<100);
 			r_coord=0;
-			Fighter=CraftFactory.createCraft("Fighter", intOri(genRandomInt(0,4)));
+			Fighter=CraftFactory.createCraft("aircraft.Fighter", intOri(genRandomInt(0,4)));
 
 				do {
 					try {
@@ -196,7 +199,7 @@ public class PlayerRandom implements IPlayer{
 					}
 				}while(!put && r_coord<100);
 				r_coord=0;
-				Transport=CraftFactory.createCraft("Transport", intOri(genRandomInt(0,4)));
+				Transport=CraftFactory.createCraft("aircraft.Transport", intOri(genRandomInt(0,4)));
 
 					do {
 						try {
@@ -220,8 +223,12 @@ public class PlayerRandom implements IPlayer{
  */
 	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException {
 		Coordinate c=genRandomCoordinate(b,0);
-		b.hit(c);
+		lastShotStatus=b.hit(c);
 		return c;
+	}
+	
+	public CellStatus getLastShotStatus() {
+		return lastShotStatus;
 	}
 
 }

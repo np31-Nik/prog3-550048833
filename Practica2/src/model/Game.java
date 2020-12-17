@@ -8,6 +8,8 @@ import model.exceptions.OccupiedCoordinateException;
 import model.exceptions.io.BattleshipIOException;
 import model.io.IPlayer;
 import model.io.IVisualiser;
+import model.score.CraftScore;
+import model.score.HitScore;
 /**
  * Clase Game
  * @author Nikita Polyanskiy P550048833
@@ -42,6 +44,15 @@ public class Game {
 	 * b2
 	 */
 	private Board board2;
+	
+	private HitScore hitScore1;
+	
+	private HitScore hitScore2;
+	
+	private CraftScore craftScore1;
+	
+	private CraftScore craftScore2;
+	
 	/**
 	 * Constructor
 	 * @param b1 board1
@@ -58,6 +69,10 @@ public class Game {
 		player2=p2;
 		board1=b1;
 		board2=b2;
+		hitScore1= new HitScore(player1);
+		hitScore2= new HitScore(player2);
+		craftScore1= new CraftScore(player1);
+		craftScore2= new CraftScore(player2);
 		gameStarted=false;
 		
 	}
@@ -151,6 +166,10 @@ public class Game {
 			if(nextToShoot==1) {
 				shoot=player1.nextShoot(board2);
 				if(shoot!=null) {
+					hitScore1.score(player1.getLastShotStatus());
+					if(player1.getLastShotStatus()==CellStatus.DESTROYED) {
+						craftScore1.score(board2.getCraft(shoot));
+					}
 				nextToShoot=2;
 				shootCounter++;
 				return true;
@@ -161,6 +180,10 @@ public class Game {
 				
 				shoot=player2.nextShoot(board1);
 				if(shoot!=null) {
+					hitScore2.score(player2.getLastShotStatus());
+					if(player2.getLastShotStatus()==CellStatus.DESTROYED) {
+						craftScore2.score(board1.getCraft(shoot));
+					}
 				nextToShoot=1;
 				shootCounter++;
 				return true;
@@ -247,7 +270,17 @@ public class Game {
 	 * @return el score
 	 */
 	public String getScoreInfo() {
-		return null;
+		String s="";
+		
+		s+="Player 1\n";
+		s+="HitScore: "+hitScore1.toString()+"\n";
+		s+="CraftScore: "+craftScore1.toString()+"\n";
+		s+="--------------\n";
+		s+="Player 2\n";
+		s+="HitScore: "+hitScore2.toString()+"\n";
+		s+="CraftScore: "+craftScore2.toString();
+		
+		return s;
 		
 	}
 	
@@ -255,31 +288,35 @@ public class Game {
 	 * Metodo gethitscorep1
 	 * @return el score del p1
 	 */
-	//public HitScore getHitScorePlayer1() {
+	public HitScore getHitScorePlayer1() {
+		return hitScore1;
 		
-	//}
+	}
 	
 	/**
 	 * hitscore player 2
 	 * @return hitscore player 2
 	 */
-	//public HitScore getHitScorePlayer2() {
+	public HitScore getHitScorePlayer2() {
+		return hitScore2;
 		
-	//}
+	}
 	
 	/**
 	 * Metodo craftscore p1
 	 * @return craftscore p1
 	 */
-	//public CraftScore getCraftScorePlayer1() {
+	public CraftScore getCraftScorePlayer1() {
+		return craftScore1;
 		
-	//}
+	}
 	
 	/**
 	 * Metodo craftscore p2
 	 * @return craftscore p2
 	 */
-	//public CraftScore getCraftScorePlayer2() {
+	public CraftScore getCraftScorePlayer2() {
+		return craftScore2;
 		
-	//}
+	}
 }

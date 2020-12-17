@@ -37,4 +37,8 @@ public class Carrier extends Ship {
 
 		super.setShape(shape);
 	}
+	
+	public int getValue() {
+		return 8;
+	}
 }

@@ -37,4 +37,8 @@ public class Cruiser extends Ship{
 
 		super.setShape(shape);
 	}
+	
+	public int getValue() {
+		return 5;
+	}
 }

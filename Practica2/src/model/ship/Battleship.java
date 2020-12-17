@@ -37,4 +37,8 @@ public class Battleship extends Ship {
 
 		super.setShape(shape);
 	}
+	
+	public int getValue() {
+		return 6;
+	}
 }

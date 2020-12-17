@@ -26,7 +26,7 @@ public class CraftFactory{
  */
 	public static Craft createCraft(String type, Orientation orientation) {
 		Craft craft;
-		String dir="model.ship."+type;
+		String dir="model."+type;
 		
 		try {
 			Class<?> c=Class.forName(dir);

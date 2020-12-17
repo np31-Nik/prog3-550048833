@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import model.Board;
+import model.CellStatus;
 import model.Coordinate;
 import model.CoordinateFactory;
 import model.Craft;
@@ -37,6 +38,8 @@ public class PlayerFile implements IPlayer{
 	 * moreshots
 	 */
 	private boolean moreshots=true;
+	
+	private CellStatus lastShotStatus;
 	/**
 	 * Constructor playerfile
 	 * @param name nombre
@@ -200,7 +203,7 @@ public class PlayerFile implements IPlayer{
 						int[] coords= {x,y};
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
-						b.hit(c);
+						lastShotStatus=b.hit(c);
 						return c;
 
 					}else if(tokens.length==4) {
@@ -210,7 +213,7 @@ public class PlayerFile implements IPlayer{
 						int[] coords= {x,y,z};
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
-						b.hit(c);
+						lastShotStatus=b.hit(c);
 						
 						return c;
 						
@@ -220,6 +223,7 @@ public class PlayerFile implements IPlayer{
 				}else if(tokens[0].equals("exit")) {
 					leer=false;	
 					moreshots=false;
+					lastShotStatus=null;
 					break;
 				}else {
 					throw new BattleshipIOException("Comando incorrecto");	
@@ -232,5 +236,9 @@ public class PlayerFile implements IPlayer{
 			throw new BattleshipIOException(e.getMessage());
 		}
 		return null;
+	}
+	
+	public CellStatus getLastShotStatus() {
+		return lastShotStatus;
 	}
 }

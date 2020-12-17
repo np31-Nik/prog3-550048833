@@ -37,4 +37,8 @@ public class Fighter extends Aircraft {
 
 			super.setShape(shape);	
 	}
+	
+	public int getValue() {
+		return 10;
+	}
 }
