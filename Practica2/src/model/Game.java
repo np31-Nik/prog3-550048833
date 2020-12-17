@@ -44,13 +44,21 @@ public class Game {
 	 * b2
 	 */
 	private Board board2;
-	
+	/**
+	 * puntaje p1
+	 */
 	private HitScore hitScore1;
-	
+	/**
+	 * puntaje p2
+	 */
 	private HitScore hitScore2;
-	
+	/**
+	 * puntaje barcos p1
+	 */
 	private CraftScore craftScore1;
-	
+	/**
+	 * puntaje barcos p2
+	 */
 	private CraftScore craftScore2;
 	
 	/**

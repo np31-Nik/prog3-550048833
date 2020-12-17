@@ -191,8 +191,13 @@ public class GameTest {
 		board2 = new Board3D(7);
 		game = new Game(board1, board2, player1, player2);
 		IVisualiser iv = VisualiserFactory.createVisualiser("Console", game);
+		PrintStream ps = standardIO2File(outFile);
+		if (ps!=null) {
 		game.playGame(iv);
 		assertFalse(game.gameEnded());
+		System.setOut(System.out); //Reestablecemos la salida standard
+		ps.close();
+	} 
 		
 	}
 	

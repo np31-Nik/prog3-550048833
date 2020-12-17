@@ -25,9 +25,7 @@ public class MainP5 {
 			IPlayer player2 = PlayerFactory.createPlayer("Mary","files/playerfile-mary.txt");
 			Board b1 = new Board3D(6);
 			Board b2 = new Board3D(6);
-			
 			Game game = new Game(b1, b2, player1, player2);
-
 			IVisualiser visualiser = VisualiserFactory.createVisualiser("Console", game);
 			
 			game.playGame(visualiser);

@@ -106,7 +106,7 @@ public abstract class Board {
 	 */
 	public boolean addCraft(Craft craft, Coordinate position) throws InvalidCoordinateException, OccupiedCoordinateException, NextToAnotherCraftException {
 		boolean add=true;
-		
+		//System.out.println(craft.getName());
 		for(Coordinate c_barco : craft.getAbsolutePositions(position)) {
 			if(!checkCoordinate(c_barco)) {
 				throw new InvalidCoordinateException(c_barco);
@@ -188,7 +188,7 @@ public abstract class Board {
 				for(Coordinate S : neigh) {
 					seen.add(S.copy());
 				}
-	
+
 				return CellStatus.DESTROYED;
 			}else{
 				return CellStatus.HIT;

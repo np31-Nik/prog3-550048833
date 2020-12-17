@@ -72,13 +72,13 @@ public class PlayerFile implements IPlayer{
 	 */
 	public void putCrafts(Board b) throws InvalidCoordinateException, OccupiedCoordinateException, NextToAnotherCraftException, BattleshipIOException {
 		Set<String> types=new HashSet<String>();
-		types.add("Cruiser");
-		types.add("Battleship");
-		types.add("Carrier");
-		types.add("Destroyer");
-		types.add("Bomber");
-		types.add("Fighter");
-		types.add("Transport");
+		types.add("ship.Cruiser");
+		types.add("ship.Battleship");
+		types.add("ship.Carrier");
+		types.add("ship.Destroyer");
+		types.add("aircraft.Bomber");
+		types.add("aircraft.Fighter");
+		types.add("aircraft.Transport");
 
 		Set<String> ori=new HashSet<String>();
 		ori.add("NORTH");
@@ -129,7 +129,6 @@ public class PlayerFile implements IPlayer{
 								y=Integer.parseInt(tokens[4]);
 								int[] coords= {x,y};
 								Coordinate c = CoordinateFactory.createCoordinate(coords);
-								
 								craft=CraftFactory.createCraft(tokens[1],o);
 								b.addCraft(craft, c);
 								
@@ -204,6 +203,8 @@ public class PlayerFile implements IPlayer{
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
 						lastShotStatus=b.hit(c);
+						
+
 						return c;
 
 					}else if(tokens.length==4) {
@@ -214,7 +215,8 @@ public class PlayerFile implements IPlayer{
 						
 						Coordinate c=CoordinateFactory.createCoordinate(coords);
 						lastShotStatus=b.hit(c);
-						
+				
+
 						return c;
 						
 					}
@@ -238,6 +240,10 @@ public class PlayerFile implements IPlayer{
 		return null;
 	}
 	
+	/**
+	 * funcion getlastshot
+	 * @return el ultimo disparo
+	 */
 	public CellStatus getLastShotStatus() {
 		return lastShotStatus;
 	}

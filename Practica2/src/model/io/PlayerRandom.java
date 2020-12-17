@@ -23,7 +23,9 @@ import model.ship.Board2D;
  *
  */
 public class PlayerRandom implements IPlayer{
-	
+	/**
+	 * Estado del ultimo disparo
+	 */
 	private CellStatus lastShotStatus;
 	/**
 	 * Random
@@ -226,7 +228,10 @@ public class PlayerRandom implements IPlayer{
 		lastShotStatus=b.hit(c);
 		return c;
 	}
-	
+	/**
+	 * funcion getlastshot
+	 * @return el ultimo disparo
+	 */
 	public CellStatus getLastShotStatus() {
 		return lastShotStatus;
 	}

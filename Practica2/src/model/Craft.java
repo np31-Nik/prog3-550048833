@@ -442,7 +442,10 @@ public abstract class Craft {
 	return ship;
 	}
 	
-	
+	/**
+	 * funcion abstracta que devuelve el valor de la nave
+	 * @return el valor
+	 */
 	public abstract int getValue();
 
 }

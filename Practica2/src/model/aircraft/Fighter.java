@@ -37,7 +37,10 @@ public class Fighter extends Aircraft {
 
 			super.setShape(shape);	
 	}
-	
+	/**
+	 * funcion que devuelve el valor de la nave
+	 * @return el valor
+	 */
 	public int getValue() {
 		return 10;
 	}
