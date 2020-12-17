@@ -38,7 +38,10 @@ public class PlayerFile implements IPlayer{
 	 * moreshots
 	 */
 	private boolean moreshots=true;
-	
+	/**
+	 * el estado de celda
+	 * 
+	 */
 	private CellStatus lastShotStatus;
 	/**
 	 * Constructor playerfile

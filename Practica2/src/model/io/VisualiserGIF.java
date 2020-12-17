@@ -13,7 +13,9 @@ import model.io.gif.FrameGIF;
  *
  */
 public class VisualiserGIF implements IVisualiser{
-	
+	/**
+	 * AnimatedGIF
+	 */
 	private AnimatedGIF agif = new AnimatedGIF();
 /**
  * game

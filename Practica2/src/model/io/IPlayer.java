@@ -38,6 +38,9 @@ public interface IPlayer {
 	 * @throws CoordinateAlreadyHitException alreadyhit
 	 */
 	public Coordinate nextShoot(Board b) throws BattleshipIOException, InvalidCoordinateException, CoordinateAlreadyHitException;
-	
+	/**
+	 * devuelve el estado de celda
+	 * @return CellStatus
+	 */
 	public CellStatus getLastShotStatus();
 }
