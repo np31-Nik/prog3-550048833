@@ -110,13 +110,9 @@ public class PlayerRandom implements IPlayer{
 	/**
 	 * Metodo putcrafts
 	 * @param b el board
-	 * @throws InvalidCoordinateException invalid
-	 * @throws OccupiedCoordinateException occupied
-	 * @throws NextToAnotherCraftException next
 	 * @throws BattleshipIOException io
 	 */
-	public void putCrafts(Board b) throws InvalidCoordinateException, OccupiedCoordinateException,
-			NextToAnotherCraftException, BattleshipIOException {
+	public void putCrafts(Board b) throws BattleshipIOException {
 		int r_coord=0;
 		boolean put;
 		

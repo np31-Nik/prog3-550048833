@@ -82,3 +82,12 @@ shoot 0 0 6
 shoot 6 1 6
 shoot 6 2 6
 exit
+shoot 6 3 6
+shoot 3 2 6
+shoot 3 3 6
+shoot 5 6 6
+shoot 2 2 6
+shoot 2 3 6
+shoot 2 4 6
+shoot 2 5 6
+shoot 2 0 6

@@ -37,15 +37,23 @@ public abstract class Score<T> implements Comparable<Score<T>>{
 	}
 	
 	/**
+	 * Funcion getscore
+	 * @return la puntuacion
+	 */
+	public int getScore() {
+		return score;
+	}
+	
+	/**
 	 * funcion compareTo
 	 * @param other el otro puntaje
 	 * @return -1 si menor, 1 si mayor
 	 */
 	public int compareTo(Score<T> other) {
 		if(other.score>this.score) {
-			return -1;
-		}else if(other.score<this.score) {
 			return 1;
+		}else if(other.score<this.score) {
+			return -1;
 		}else {
 			return player.getName().compareTo(other.player.getName());
 		}

@@ -74,6 +74,11 @@ public class PlayerFile implements IPlayer{
 	 * @throws BattleshipIOException io
 	 */
 	public void putCrafts(Board b) throws InvalidCoordinateException, OccupiedCoordinateException, NextToAnotherCraftException, BattleshipIOException {
+		
+		
+		
+		
+		
 		Set<String> types=new HashSet<String>();
 		types.add("ship.Cruiser");
 		types.add("ship.Battleship");
